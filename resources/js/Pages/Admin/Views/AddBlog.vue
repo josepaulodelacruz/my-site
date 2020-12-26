@@ -1,0 +1,103 @@
+<template>
+    <admin-layout>
+        <template #header>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                Add Blog
+            </h2>
+        </template>
+
+        <div class="grid grid-cols-1 pt-6">
+            <jet-form-section>
+                <template #title>
+                    Add Blog
+                </template>
+                <template #description>
+                    Write any topics you want to discuss, share or explained.
+                </template>
+                <template #form>
+                    <div class="col-span-6 sm:col-span-4">
+                        <jet-label for="title" value="Blog Title"/>
+                        <jet-input id="title" type="text" class="mt-1 block w-full" />
+                    </div>
+
+                    <div class="col-span-6 sm:col-span-4">
+                        <jet-label for="Description" value="Blog Description" />
+                        <jet-input id="description" type="text" class="mt-1 block w-full"/>
+                    </div>
+
+                </template>
+                <template #actions>
+                    <jet-action-message class="mr-3">
+                        Saved.
+                    </jet-action-message>
+
+                    <button @click="submitBlog" class="bg-gray-500 p-2 rounded-lg text-white font-bold">
+                        ADD
+                    </button>
+                </template>
+            </jet-form-section>
+
+            <div class="lg:flex">
+                <div class="flex-col flex-grow">
+                    <h2>Add Blog Cover Photo</h2>
+                    <div class="flex justify-center items-center bg-white h-56 rounded-lg shadow">
+                        <div class="bg-gray-200 h-24 w-24 flex items-center justify-center  rounded-full">
+                            +
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex-col lg:ml-6 flex-grow">
+                    <h2>Body</h2>
+                    <div class="w-full bg-white rounded-lg">
+                        <VueTrix v-model="form.body"/>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </admin-layout>
+</template>
+
+<script>
+import AdminLayout from '@/Layouts/AdminLayout'
+import JetButton from '@/Jetstream/Button'
+import JetFormSection from '@/Jetstream/FormSection'
+import JetInput from '@/Jetstream/Input'
+import JetInputError from '@/Jetstream/InputError'
+import JetLabel from '@/Jetstream/Label'
+import JetActionMessage from '@/Jetstream/ActionMessage'
+import JetSecondaryButton from '@/Jetstream/SecondaryButton'
+import VueTrix from 'vue-trix'
+
+export default {
+  components: {
+    JetActionMessage,
+    JetButton,
+    JetFormSection,
+    JetInput,
+    JetInputError,
+    JetLabel,
+    JetSecondaryButton,
+    AdminLayout,
+    VueTrix
+  },
+  data() {
+    return {
+      form: {
+        title: null,
+        description: null,
+        coverPhoto: null,
+        body: "<h1>Enter Contents</h1>"
+      },
+    }
+  },
+  methods: {
+    submitBlog() {
+      console.log(this.form.body)
+    }
+  }
+
+}
+</script>
