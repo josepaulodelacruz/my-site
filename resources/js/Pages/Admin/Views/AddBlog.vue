@@ -7,7 +7,7 @@
         </template>
 
         <div class="grid grid-cols-1 pt-6">
-            <jet-form-section>
+            <jet-form-section enctype="multipart/form-data">
                 <template #title>
                     Add Blog
                 </template>
@@ -17,12 +17,12 @@
                 <template #form>
                     <div class="col-span-6 sm:col-span-4">
                         <jet-label for="title" value="Blog Title"/>
-                        <jet-input id="title" type="text" class="mt-1 block w-full" />
+                        <jet-input v-model="form.title" :value="form.title" id="title" type="text" class="mt-1 block w-full" />
                     </div>
 
                     <div class="col-span-6 sm:col-span-4">
                         <jet-label for="Description" value="Blog Description" />
-                        <jet-input id="description" type="text" class="mt-1 block w-full"/>
+                        <jet-input v-model="form.description" id="description" type="text" class="mt-1 block w-full"/>
                     </div>
 
                 </template>
@@ -88,6 +88,7 @@ export default {
   data() {
     return {
       uploadedImage: null,
+      photo: null,
       form: {
         title: null,
         description: null,
@@ -98,11 +99,24 @@ export default {
   },
   methods: {
     submitBlog() {
-      console.log(this.form.body)
+      this.form.coverPhoto = this.uploadedImage
+      var data = new FormData()
+
+      data.append('title', this.form.title)
+      data.append('description', this.form.description)
+      data.append('coverPhoto', this.photo)
+      data.append('body', this.form.body);
+
+      this.$inertia.post('/admin/blog/add', data, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        }
+      });
     },
     uploadPic(event) {
       // Reference to the DOM input element
       var input = event.target;
+      this.photo = input.files[0]
       // Ensure that you have a file before attempting to read it
       if (input.files && input.files[0]) {
         // create a new FileReader to read this image and convert to base64 format
@@ -115,6 +129,7 @@ export default {
         }
         // Start the reader job - read file as a data url (base64 format)
         reader.readAsDataURL(input.files[0]);
+
       }
     },
   },

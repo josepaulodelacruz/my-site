@@ -3734,6 +3734,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       uploadedImage: null,
+      photo: null,
       form: {
         title: null,
         description: null,
@@ -3744,13 +3745,24 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     submitBlog: function submitBlog() {
-      console.log(this.form.body);
+      this.form.coverPhoto = this.uploadedImage;
+      var data = new FormData();
+      data.append('title', this.form.title);
+      data.append('description', this.form.description);
+      data.append('coverPhoto', this.photo);
+      data.append('body', this.form.body);
+      this.$inertia.post('/admin/blog/add', data, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
     },
     uploadPic: function uploadPic(event) {
       var _this = this;
 
       // Reference to the DOM input element
-      var input = event.target; // Ensure that you have a file before attempting to read it
+      var input = event.target;
+      this.photo = input.files[0]; // Ensure that you have a file before attempting to read it
 
       if (input.files && input.files[0]) {
         // create a new FileReader to read this image and convert to base64 format
@@ -49219,6 +49231,7 @@ var render = function() {
         { staticClass: "grid grid-cols-1 pt-6" },
         [
           _c("jet-form-section", {
+            attrs: { enctype: "multipart/form-data" },
             scopedSlots: _vm._u([
               {
                 key: "title",
@@ -49252,7 +49265,18 @@ var render = function() {
                         _vm._v(" "),
                         _c("jet-input", {
                           staticClass: "mt-1 block w-full",
-                          attrs: { id: "title", type: "text" }
+                          attrs: {
+                            value: _vm.form.title,
+                            id: "title",
+                            type: "text"
+                          },
+                          model: {
+                            value: _vm.form.title,
+                            callback: function($$v) {
+                              _vm.$set(_vm.form, "title", $$v)
+                            },
+                            expression: "form.title"
+                          }
                         })
                       ],
                       1
@@ -49271,7 +49295,14 @@ var render = function() {
                         _vm._v(" "),
                         _c("jet-input", {
                           staticClass: "mt-1 block w-full",
-                          attrs: { id: "description", type: "text" }
+                          attrs: { id: "description", type: "text" },
+                          model: {
+                            value: _vm.form.description,
+                            callback: function($$v) {
+                              _vm.$set(_vm.form, "description", $$v)
+                            },
+                            expression: "form.description"
+                          }
                         })
                       ],
                       1
@@ -49498,7 +49529,7 @@ var render = function() {
                   {
                     staticClass:
                       "float-right m-1 bg-green-500 rounded-lg p-1 text-white font-bold",
-                    attrs: { href: _vm.route("admin.blog.add") }
+                    attrs: { href: _vm.route("admin.blog.new") }
                   },
                   [_vm._v("\n                    Add Blog\n                ")]
                 ),

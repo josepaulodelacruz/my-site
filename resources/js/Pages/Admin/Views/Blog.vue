@@ -30,7 +30,7 @@
             <div class="flex w-full px-10 mt-3 mb-2 justify-between lg:px-0">
                 <h2 class="text-3xl font-bold shadow-text-3xl text-color-black">Blog Posts</h2>
                 <div class="flex justify-around">
-                    <inertia-link :href="route('admin.blog.add')" class="float-right m-1 bg-green-500 rounded-lg p-1 text-white font-bold">
+                    <inertia-link :href="route('admin.blog.new')" class="float-right m-1 bg-green-500 rounded-lg p-1 text-white font-bold">
                         Add Blog
                     </inertia-link>
                     <button class="float-right m-1 bg-red-500 rounded-lg p-1 text-white font-bold">
