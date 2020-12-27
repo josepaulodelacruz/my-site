@@ -3708,6 +3708,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -3731,6 +3733,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      uploadedImage: null,
       form: {
         title: null,
         description: null,
@@ -3742,6 +3745,26 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     submitBlog: function submitBlog() {
       console.log(this.form.body);
+    },
+    uploadPic: function uploadPic(event) {
+      var _this = this;
+
+      // Reference to the DOM input element
+      var input = event.target; // Ensure that you have a file before attempting to read it
+
+      if (input.files && input.files[0]) {
+        // create a new FileReader to read this image and convert to base64 format
+        var reader = new FileReader(); // Define a callback function to run, when FileReader finishes its job
+
+        reader.onload = function (e) {
+          // Note: arrow function used here, so that "this.imageData" refers to the imageData of Vue component
+          // Read image as base64 and set to imageData
+          _this.uploadedImage = e.target.result;
+        }; // Start the reader job - read file as a data url (base64 format)
+
+
+        reader.readAsDataURL(input.files[0]);
+      }
     }
   }
 });
@@ -49285,27 +49308,47 @@ var render = function() {
             _c("div", { staticClass: "flex-col flex-grow" }, [
               _c("h2", [_vm._v("Add Blog Cover Photo")]),
               _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "flex justify-center items-center bg-white h-56 rounded-lg shadow"
-                },
-                [
-                  _c(
+              !_vm.uploadedImage
+                ? _c(
                     "div",
                     {
                       staticClass:
-                        "bg-gray-200 h-24 w-24 flex items-center justify-center  rounded-full"
+                        "flex justify-center items-center bg-white h-56 rounded-lg shadow"
                     },
                     [
-                      _vm._v(
-                        "\n                        +\n                    "
+                      _c(
+                        "button",
+                        {
+                          staticClass:
+                            "bg-gray-200 h-24 w-24 flex items-center justify-center  rounded-full"
+                        },
+                        [
+                          _vm._v(
+                            "\n                        +\n                    "
+                          )
+                        ]
                       )
                     ]
                   )
-                ]
-              )
+                : _vm._e(),
+              _vm._v(" "),
+              _c("input", {
+                staticClass:
+                  "bg-gray-200 h-24 w-24 flex items-center justify-center  rounded-full",
+                attrs: { type: "file", accept: "image/*", id: "file-input" },
+                on: {
+                  change: function($event) {
+                    return _vm.uploadPic($event)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _vm.uploadedImage
+                ? _c("img", {
+                    staticClass: "h-56 w-full object-contain",
+                    attrs: { src: _vm.uploadedImage, alt: "" }
+                  })
+                : _vm._e()
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "flex-col lg:ml-6 flex-grow" }, [
