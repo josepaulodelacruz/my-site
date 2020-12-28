@@ -2,31 +2,61 @@
 
 namespace App\Http\Controllers;
 
-use Faker\Provider\Uuid;
+use App\Models\Blog;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Inertia\Inertia;
 
 class BlogController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return Inertia::render('Admin/Views/Blog');
+        $blogs = $request->user()->blogs()->get();
+        return Inertia::render('Admin/Views/Blog', [
+            'blogs' => $blogs
+        ]);
     }
 
-    public function addBlog ()
+    public function addBlog()
     {
         return Inertia::render('Admin/Views/AddBlog');
     }
 
     public function store(Request $request)
     {
-        $this->validate($request, [
+
+        $request->validateWithBag('blogForm', [
+            'title' => 'required',
+            'description' => 'required',
+            'body' => 'required',
             'coverPhoto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        $imageName = time().'.'.$request->coverPhoto->extension();
+
+        $imageName = time() . '.' . $request->coverPhoto->extension();
 
         $request->coverPhoto->move(public_path('images/blogs'), $imageName);
+
+        $request->user()->blogs()->create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'body' => $request->body,
+            'image' => $imageName
+        ]);
+
+        return redirect()->route('admin.blog');
+    }
+
+    public function destroy(Blog $blog)
+    {
+        $image_path = 'images/blogs/' . $blog->image;
+        if(File::exists($image_path)) {
+            File::delete($image_path);
+        }
+
+        $blog->delete();
+
+        return back();
     }
 
 }

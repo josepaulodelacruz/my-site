@@ -18,11 +18,17 @@
                     <div class="col-span-6 sm:col-span-4">
                         <jet-label for="title" value="Blog Title"/>
                         <jet-input v-model="form.title" :value="form.title" id="title" type="text" class="mt-1 block w-full" />
+                        <jet-input-error
+                            :message="form.error('title')"
+                        />
+
+
                     </div>
 
                     <div class="col-span-6 sm:col-span-4">
                         <jet-label for="Description" value="Blog Description" />
                         <jet-input v-model="form.description" id="description" type="text" class="mt-1 block w-full"/>
+                        <jet-input-error :message="form.error('description')"/>
                     </div>
 
                 </template>
@@ -39,6 +45,7 @@
 
             <div class="lg:flex">
                 <div class="flex-col flex-grow">
+                    <jet-input-error :message="form.error('coverPhoto')"/>
                     <h2>Add Blog Cover Photo</h2>
                     <div v-if="!uploadedImage" class="flex justify-center items-center bg-white h-56 rounded-lg shadow">
                         <button class="bg-gray-200 h-24 w-24 flex items-center justify-center  rounded-full">
@@ -46,7 +53,8 @@
                         </button>
                     </div>
                     <input type="file" accept="image/*" id="file-input" @change="uploadPic($event)" class="bg-gray-200 h-24 w-24 flex items-center justify-center  rounded-full">
-                    <img v-if="uploadedImage" class="h-56 w-full object-contain" :src="uploadedImage" alt="">
+                    <img v-if="uploadedImage" class="h-56 object-fill" :src="uploadedImage" alt="">
+
                 </div>
 
                 <div class="flex-col lg:ml-6 flex-grow">
@@ -54,6 +62,7 @@
                     <div class="w-full bg-white rounded-lg">
                         <VueTrix v-model="form.body"/>
                     </div>
+                    <jet-input-error :message="form.error('body')"/>
                 </div>
 
             </div>
@@ -89,28 +98,29 @@ export default {
     return {
       uploadedImage: null,
       photo: null,
-      form: {
-        title: null,
-        description: null,
-        coverPhoto: null,
-        body: "<h1>Enter Contents</h1>"
-      },
+      form: this.$inertia.form({
+        'title': null,
+        'description': null,
+        'body': null,
+        'coverPhoto': null
+      }, {
+        bag: 'blogForm'
+      })
     }
   },
   methods: {
     submitBlog() {
-      this.form.coverPhoto = this.uploadedImage
+      this.form.coverPhoto = this.photo
       var data = new FormData()
 
       data.append('title', this.form.title)
       data.append('description', this.form.description)
       data.append('coverPhoto', this.photo)
       data.append('body', this.form.body);
+      data.append('bag', 'blogForm');
 
-      this.$inertia.post('/admin/blog/add', data, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        }
+      this.form.post(route("admin.blog.add"), {
+        preserveScroll: true,
       });
     },
     uploadPic(event) {

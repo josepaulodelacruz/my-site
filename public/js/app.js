@@ -1934,6 +1934,8 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -1971,8 +1973,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-/* harmony default export */ __webpack_exports__["default"] = ({});
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['blog'],
+  methods: {
+    convertDate: function convertDate(date) {
+      return moment__WEBPACK_IMPORTED_MODULE_0___default()(date).format('MMMM Do YYYY');
+    },
+    viewBlog: function viewBlog() {
+      console.log(this.blog);
+    },
+    blogDelete: function blogDelete(b) {
+      b._method = "DELETE";
+      this.$inertia.post("/admin/blog/".concat(b.id, "/delete"), b);
+    }
+  }
+});
 
 /***/ }),
 
@@ -3710,6 +3726,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3735,26 +3760,27 @@ __webpack_require__.r(__webpack_exports__);
     return {
       uploadedImage: null,
       photo: null,
-      form: {
-        title: null,
-        description: null,
-        coverPhoto: null,
-        body: "<h1>Enter Contents</h1>"
-      }
+      form: this.$inertia.form({
+        'title': null,
+        'description': null,
+        'body': null,
+        'coverPhoto': null
+      }, {
+        bag: 'blogForm'
+      })
     };
   },
   methods: {
     submitBlog: function submitBlog() {
-      this.form.coverPhoto = this.uploadedImage;
+      this.form.coverPhoto = this.photo;
       var data = new FormData();
       data.append('title', this.form.title);
       data.append('description', this.form.description);
       data.append('coverPhoto', this.photo);
       data.append('body', this.form.body);
-      this.$inertia.post('/admin/blog/add', data, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+      data.append('bag', 'blogForm');
+      this.form.post(route("admin.blog.add"), {
+        preserveScroll: true
       });
     },
     uploadPic: function uploadPic(event) {
@@ -3793,13 +3819,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Layouts_AdminLayout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Layouts/AdminLayout */ "./resources/js/Layouts/AdminLayout.vue");
-/* harmony import */ var _Jetstream_ActionMessage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Jetstream/ActionMessage */ "./resources/js/Jetstream/ActionMessage.vue");
-/* harmony import */ var _Jetstream_Button__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Jetstream/Button */ "./resources/js/Jetstream/Button.vue");
-/* harmony import */ var _Jetstream_FormSection__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/Jetstream/FormSection */ "./resources/js/Jetstream/FormSection.vue");
-/* harmony import */ var _Jetstream_Input__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/Jetstream/Input */ "./resources/js/Jetstream/Input.vue");
-/* harmony import */ var _Jetstream_InputError__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/Jetstream/InputError */ "./resources/js/Jetstream/InputError.vue");
-/* harmony import */ var _Jetstream_Label__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/Jetstream/Label */ "./resources/js/Jetstream/Label.vue");
-/* harmony import */ var _Components_BlocCard__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/Components/BlocCard */ "./resources/js/Components/BlocCard.vue");
+/* harmony import */ var _Jetstream_Input__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Jetstream/Input */ "./resources/js/Jetstream/Input.vue");
+/* harmony import */ var _Components_BlocCard__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Components/BlocCard */ "./resources/js/Components/BlocCard.vue");
 //
 //
 //
@@ -3851,33 +3872,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-
-
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['blogs'],
   components: {
     AdminLayout: _Layouts_AdminLayout__WEBPACK_IMPORTED_MODULE_0__["default"],
-    JetActionMessage: _Jetstream_ActionMessage__WEBPACK_IMPORTED_MODULE_1__["default"],
-    JetButton: _Jetstream_Button__WEBPACK_IMPORTED_MODULE_2__["default"],
-    JetFormSection: _Jetstream_FormSection__WEBPACK_IMPORTED_MODULE_3__["default"],
-    JetInput: _Jetstream_Input__WEBPACK_IMPORTED_MODULE_4__["default"],
-    JetInputError: _Jetstream_InputError__WEBPACK_IMPORTED_MODULE_5__["default"],
-    JetLabel: _Jetstream_Label__WEBPACK_IMPORTED_MODULE_6__["default"],
-    BlogCard: _Components_BlocCard__WEBPACK_IMPORTED_MODULE_7__["default"]
+    JetInput: _Jetstream_Input__WEBPACK_IMPORTED_MODULE_1__["default"],
+    BlogCard: _Components_BlocCard__WEBPACK_IMPORTED_MODULE_2__["default"]
   }
 });
 
@@ -45824,12 +45827,50 @@ var render = function() {
     "article",
     {
       staticClass:
-        "overflow-hidden bg-white w-56 h-56 mr-3 mb-6 rounded-lg shadow-lg"
+        "flex-col overflow-hidden bg-white w-56 h-56 mr-3 mb-6 rounded-lg shadow-lg",
+      on: { click: _vm.viewBlog }
     },
     [
-      _vm._m(0),
+      _c("a", { attrs: { href: "#" } }, [
+        _c("img", {
+          staticClass: "block h-1/2 w-full object-fill",
+          attrs: { alt: "Placeholder", src: "/images/blogs/" + _vm.blog.image }
+        })
+      ]),
       _vm._v(" "),
-      _vm._m(1),
+      _c(
+        "header",
+        {
+          staticClass:
+            "flex items-center justify-between leading-tight p-2 md:p-4"
+        },
+        [
+          _c("h1", { staticClass: "text-lg" }, [
+            _c(
+              "a",
+              {
+                staticClass: "no-underline hover:underline text-black",
+                attrs: { href: "#" }
+              },
+              [
+                _vm._v(
+                  "\n                " +
+                    _vm._s(_vm.blog.title) +
+                    "\n            "
+                )
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("p", { staticClass: "text-grey-darker text-xs" }, [
+            _vm._v(
+              "\n            " +
+                _vm._s(_vm.convertDate(_vm.blog.created_at)) +
+                "\n        "
+            )
+          ])
+        ]
+      ),
       _vm._v(" "),
       _c(
         "footer",
@@ -45838,42 +45879,53 @@ var render = function() {
             "flex items-center justify-between leading-none p-2 md:p-4"
         },
         [
-          _vm._m(2),
+          _vm._m(0),
           _vm._v(" "),
           _c("div", { staticClass: "flex" }, [
-            _c("button", { staticClass: "mr-1 bg-red-500 rounded-lg p-1" }, [
-              _c(
-                "svg",
-                {
-                  attrs: {
-                    xmlns: "http://www.w3.org/2000/svg",
-                    width: "24",
-                    height: "24",
-                    viewBox: "0 0 24 24",
-                    fill: "none",
-                    stroke: "#ffffff",
-                    "stroke-width": "2",
-                    "stroke-linecap": "round",
-                    "stroke-linejoin": "round"
+            _c(
+              "button",
+              {
+                staticClass: "mr-1 bg-red-500 rounded-lg p-1",
+                on: {
+                  click: function($event) {
+                    return _vm.blogDelete(_vm.blog)
                   }
-                },
-                [
-                  _c("polyline", { attrs: { points: "3 6 5 6 21 6" } }),
-                  _c("path", {
+                }
+              },
+              [
+                _c(
+                  "svg",
+                  {
                     attrs: {
-                      d:
-                        "M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+                      xmlns: "http://www.w3.org/2000/svg",
+                      width: "24",
+                      height: "24",
+                      viewBox: "0 0 24 24",
+                      fill: "none",
+                      stroke: "#ffffff",
+                      "stroke-width": "2",
+                      "stroke-linecap": "round",
+                      "stroke-linejoin": "round"
                     }
-                  }),
-                  _c("line", {
-                    attrs: { x1: "10", y1: "11", x2: "10", y2: "17" }
-                  }),
-                  _c("line", {
-                    attrs: { x1: "14", y1: "11", x2: "14", y2: "17" }
-                  })
-                ]
-              )
-            ]),
+                  },
+                  [
+                    _c("polyline", { attrs: { points: "3 6 5 6 21 6" } }),
+                    _c("path", {
+                      attrs: {
+                        d:
+                          "M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+                      }
+                    }),
+                    _c("line", {
+                      attrs: { x1: "10", y1: "11", x2: "10", y2: "17" }
+                    }),
+                    _c("line", {
+                      attrs: { x1: "14", y1: "11", x2: "14", y2: "17" }
+                    })
+                  ]
+                )
+              ]
+            ),
             _vm._v(" "),
             _c("button", { staticClass: " bg-blue-500 rounded-lg p-1" }, [
               _c(
@@ -45915,48 +45967,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("a", { attrs: { href: "#" } }, [
-      _c("img", {
-        staticClass: "block h-1/2 w-full object-cover",
-        attrs: {
-          alt: "Placeholder",
-          src: "https://picsum.photos/600/400/?random"
-        }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "header",
-      {
-        staticClass:
-          "flex items-center justify-between leading-tight p-2 md:p-4"
-      },
-      [
-        _c("h1", { staticClass: "text-lg" }, [
-          _c(
-            "a",
-            {
-              staticClass: "no-underline hover:underline text-black",
-              attrs: { href: "#" }
-            },
-            [_vm._v("\n                Article Title\n            ")]
-          )
-        ]),
-        _vm._v(" "),
-        _c("p", { staticClass: "text-grey-darker text-sm" }, [
-          _vm._v("\n            14/4/19\n        ")
-        ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c(
       "a",
       {
@@ -45974,7 +45984,7 @@ var staticRenderFns = [
         }),
         _vm._v(" "),
         _c("p", { staticClass: "ml-2 text-sm truncate" }, [
-          _vm._v("\n                Author Name\n            ")
+          _vm._v("\n                Jose Paulo Dela Cruz\n            ")
         ])
       ]
     )
@@ -49277,6 +49287,10 @@ var render = function() {
                             },
                             expression: "form.title"
                           }
+                        }),
+                        _vm._v(" "),
+                        _c("jet-input-error", {
+                          attrs: { message: _vm.form.error("title") }
                         })
                       ],
                       1
@@ -49303,6 +49317,10 @@ var render = function() {
                             },
                             expression: "form.description"
                           }
+                        }),
+                        _vm._v(" "),
+                        _c("jet-input-error", {
+                          attrs: { message: _vm.form.error("description") }
                         })
                       ],
                       1
@@ -49336,72 +49354,90 @@ var render = function() {
           }),
           _vm._v(" "),
           _c("div", { staticClass: "lg:flex" }, [
-            _c("div", { staticClass: "flex-col flex-grow" }, [
-              _c("h2", [_vm._v("Add Blog Cover Photo")]),
-              _vm._v(" "),
-              !_vm.uploadedImage
-                ? _c(
-                    "div",
-                    {
-                      staticClass:
-                        "flex justify-center items-center bg-white h-56 rounded-lg shadow"
-                    },
-                    [
-                      _c(
-                        "button",
-                        {
-                          staticClass:
-                            "bg-gray-200 h-24 w-24 flex items-center justify-center  rounded-full"
-                        },
-                        [
-                          _vm._v(
-                            "\n                        +\n                    "
-                          )
-                        ]
-                      )
-                    ]
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              _c("input", {
-                staticClass:
-                  "bg-gray-200 h-24 w-24 flex items-center justify-center  rounded-full",
-                attrs: { type: "file", accept: "image/*", id: "file-input" },
-                on: {
-                  change: function($event) {
-                    return _vm.uploadPic($event)
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _vm.uploadedImage
-                ? _c("img", {
-                    staticClass: "h-56 w-full object-contain",
-                    attrs: { src: _vm.uploadedImage, alt: "" }
-                  })
-                : _vm._e()
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "flex-col lg:ml-6 flex-grow" }, [
-              _c("h2", [_vm._v("Body")]),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "w-full bg-white rounded-lg" },
-                [
-                  _c("VueTrix", {
-                    model: {
-                      value: _vm.form.body,
-                      callback: function($$v) {
-                        _vm.$set(_vm.form, "body", $$v)
+            _c(
+              "div",
+              { staticClass: "flex-col flex-grow" },
+              [
+                _c("jet-input-error", {
+                  attrs: { message: _vm.form.error("coverPhoto") }
+                }),
+                _vm._v(" "),
+                _c("h2", [_vm._v("Add Blog Cover Photo")]),
+                _vm._v(" "),
+                !_vm.uploadedImage
+                  ? _c(
+                      "div",
+                      {
+                        staticClass:
+                          "flex justify-center items-center bg-white h-56 rounded-lg shadow"
                       },
-                      expression: "form.body"
+                      [
+                        _c(
+                          "button",
+                          {
+                            staticClass:
+                              "bg-gray-200 h-24 w-24 flex items-center justify-center  rounded-full"
+                          },
+                          [
+                            _vm._v(
+                              "\n                        +\n                    "
+                            )
+                          ]
+                        )
+                      ]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _c("input", {
+                  staticClass:
+                    "bg-gray-200 h-24 w-24 flex items-center justify-center  rounded-full",
+                  attrs: { type: "file", accept: "image/*", id: "file-input" },
+                  on: {
+                    change: function($event) {
+                      return _vm.uploadPic($event)
                     }
-                  })
-                ],
-                1
-              )
-            ])
+                  }
+                }),
+                _vm._v(" "),
+                _vm.uploadedImage
+                  ? _c("img", {
+                      staticClass: "h-56 object-fill",
+                      attrs: { src: _vm.uploadedImage, alt: "" }
+                    })
+                  : _vm._e()
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "flex-col lg:ml-6 flex-grow" },
+              [
+                _c("h2", [_vm._v("Body")]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "w-full bg-white rounded-lg" },
+                  [
+                    _c("VueTrix", {
+                      model: {
+                        value: _vm.form.body,
+                        callback: function($$v) {
+                          _vm.$set(_vm.form, "body", $$v)
+                        },
+                        expression: "form.body"
+                      }
+                    })
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("jet-input-error", {
+                  attrs: { message: _vm.form.error("body") }
+                })
+              ],
+              1
+            )
           ])
         ],
         1
@@ -49478,110 +49514,97 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
-      _c("div", { staticClass: "grid grid-cols-1" }, [
-        _c(
-          "div",
-          { staticClass: "inline-block px-10 lg:flex lg:px-0" },
-          [
-            _c("jet-input", {
-              ref: "current_password",
-              staticClass: "mt-1 block w-full",
-              attrs: {
-                placeholder: "Search Blog",
-                type: "text",
-                autocomplete: "current-password"
-              }
-            }),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass:
-                  "float-right m-1 bg-blue-500 rounded-lg p-3 text-white font-bold"
-              },
-              [_vm._v("\n                Search\n            ")]
-            )
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass: "flex w-full px-10 mt-3 mb-2 justify-between lg:px-0"
-          },
-          [
-            _c(
-              "h2",
-              {
-                staticClass:
-                  "text-3xl font-bold shadow-text-3xl text-color-black"
-              },
-              [_vm._v("Blog Posts")]
-            ),
-            _vm._v(" "),
-            _c(
+      _c(
+        "div",
+        { staticClass: "grid grid-cols-1" },
+        [
+          _c(
+            "div",
+            { staticClass: "inline-block px-10 lg:flex lg:px-0" },
+            [
+              _c("jet-input", {
+                ref: "current_password",
+                staticClass: "mt-1 block w-full",
+                attrs: {
+                  placeholder: "Search Blog",
+                  type: "text",
+                  autocomplete: "current-password"
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass:
+                    "float-right m-1 bg-blue-500 rounded-lg p-3 text-white font-bold"
+                },
+                [_vm._v("\n                Search\n            ")]
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "flex w-full px-10 mt-3 mb-2 justify-between lg:px-0"
+            },
+            [
+              _c(
+                "h2",
+                {
+                  staticClass:
+                    "text-3xl font-bold shadow-text-3xl text-color-black"
+                },
+                [_vm._v("Blog Posts")]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "flex justify-around" },
+                [
+                  _c(
+                    "inertia-link",
+                    {
+                      staticClass:
+                        "float-right m-1 bg-green-500 rounded-lg p-1 text-white font-bold",
+                      attrs: { href: _vm.route("admin.blog.new") }
+                    },
+                    [_vm._v("\n                    Add Blog\n                ")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass:
+                        "float-right m-1 bg-red-500 rounded-lg p-1 text-white font-bold"
+                    },
+                    [
+                      _vm._v(
+                        "\n                    Delete Blog\n                "
+                      )
+                    ]
+                  )
+                ],
+                1
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _vm._l(_vm.blogs, function(blog) {
+            return _c(
               "div",
-              { staticClass: "flex justify-around" },
-              [
-                _c(
-                  "inertia-link",
-                  {
-                    staticClass:
-                      "float-right m-1 bg-green-500 rounded-lg p-1 text-white font-bold",
-                    attrs: { href: _vm.route("admin.blog.new") }
-                  },
-                  [_vm._v("\n                    Add Blog\n                ")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass:
-                      "float-right m-1 bg-red-500 rounded-lg p-1 text-white font-bold"
-                  },
-                  [
-                    _vm._v(
-                      "\n                    Delete Blog\n                "
-                    )
-                  ]
-                )
-              ],
+              {
+                staticClass:
+                  "flex flex-wrap px-10 w-full justify-center mb-5 lg:justify-start lg:px-0"
+              },
+              [_c("BlogCard", { attrs: { blog: blog } })],
               1
             )
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass:
-              "flex flex-wrap px-10 w-full justify-center mb-5 lg:justify-start lg:px-0"
-          },
-          [
-            _c("BlogCard"),
-            _vm._v(" "),
-            _c("BlogCard"),
-            _vm._v(" "),
-            _c("BlogCard"),
-            _vm._v(" "),
-            _c("BlogCard"),
-            _vm._v(" "),
-            _c("BlogCard"),
-            _vm._v(" "),
-            _c("BlogCard"),
-            _vm._v(" "),
-            _c("BlogCard"),
-            _vm._v(" "),
-            _c("BlogCard"),
-            _vm._v(" "),
-            _c("BlogCard"),
-            _vm._v(" "),
-            _c("BlogCard")
-          ],
-          1
-        )
-      ])
+          })
+        ],
+        2
+      )
     ]
   )
 }

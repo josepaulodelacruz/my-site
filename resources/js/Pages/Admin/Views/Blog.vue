@@ -39,17 +39,8 @@
                 </div>
             </div>
 
-            <div class="flex flex-wrap px-10 w-full justify-center mb-5 lg:justify-start lg:px-0">
-                <BlogCard/>
-                <BlogCard/>
-                <BlogCard/>
-                <BlogCard/>
-                <BlogCard/>
-                <BlogCard/>
-                <BlogCard/>
-                <BlogCard/>
-                <BlogCard/>
-                <BlogCard/>
+            <div v-for="blog in blogs" class="flex flex-wrap px-10 w-full justify-center mb-5 lg:justify-start lg:px-0">
+                <BlogCard :blog="blog"/>
             </div>
 
         </div>
@@ -60,22 +51,13 @@
 
 <script>
 import AdminLayout from '@/Layouts/AdminLayout'
-import JetActionMessage from '@/Jetstream/ActionMessage'
-import JetButton from '@/Jetstream/Button'
-import JetFormSection from '@/Jetstream/FormSection'
 import JetInput from '@/Jetstream/Input'
-import JetInputError from '@/Jetstream/InputError'
-import JetLabel from '@/Jetstream/Label'
 import BlogCard from '@/Components/BlocCard'
 export default {
+  props: ['blogs'],
   components: {
     AdminLayout,
-    JetActionMessage,
-    JetButton,
-    JetFormSection,
     JetInput,
-    JetInputError,
-    JetLabel,
     BlogCard
   }
 }
