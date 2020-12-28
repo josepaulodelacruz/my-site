@@ -39,8 +39,8 @@
                 </div>
             </div>
 
-            <div v-for="blog in blogs" class="flex flex-wrap px-10 w-full justify-center mb-5 lg:justify-start lg:px-0">
-                <BlogCard :blog="blog"/>
+            <div class="flex flex-wrap px-10 w-full justify-center mb-5 lg:justify-start lg:px-0">
+                <BlogCard v-for="blog in blogs" :key="blog.id" :blog="blog"/>
             </div>
 
         </div>

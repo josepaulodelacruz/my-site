@@ -2,14 +2,14 @@
     <admin-layout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Add Blog
+                {{ isUpdate ? 'Update' : 'Add'}} Blog
             </h2>
         </template>
 
         <div class="grid grid-cols-1 pt-6">
             <jet-form-section enctype="multipart/form-data">
                 <template #title>
-                    Add Blog
+                    {{ isUpdate ? 'Update' : 'Add'}} Blog
                 </template>
                 <template #description>
                     Write any topics you want to discuss, share or explained.
@@ -37,9 +37,13 @@
                         Saved.
                     </jet-action-message>
 
-                    <button @click="submitBlog" class="bg-gray-500 p-2 rounded-lg text-white font-bold">
-                        ADD
+                    <button v-if="isUpdate" @click="updateBlog(blog)" class="bg-gray-500 p-2 rounded-lg text-white font-bold">
+                        Update
                     </button>
+                    <button v-else="isUpdate" @click="submitBlog" class="bg-gray-500 p-2 rounded-lg text-white font-bold">
+                        Add
+                    </button>
+
                 </template>
             </jet-form-section>
 
@@ -53,7 +57,7 @@
                         </button>
                     </div>
                     <input type="file" accept="image/*" id="file-input" @change="uploadPic($event)" class="bg-gray-200 h-24 w-24 flex items-center justify-center  rounded-full">
-                    <img v-if="uploadedImage" class="h-56 object-fill" :src="uploadedImage" alt="">
+                    <img class="h-56 object-fill" :src="!form.coverPhoto ? '/images/blogs/' + uploadedImage : uploadedImage" alt="">
 
                 </div>
 
@@ -83,6 +87,7 @@ import JetSecondaryButton from '@/Jetstream/SecondaryButton'
 import VueTrix from 'vue-trix'
 
 export default {
+  props: ['isUpdate', 'blog'],
   components: {
     JetActionMessage,
     JetButton,
@@ -108,25 +113,37 @@ export default {
       })
     }
   },
+
+  created() {
+    console.log(this.isUpdate)
+    if(this.isUpdate) {
+      this.form.title = this.blog.title
+      this.form.description = this.blog.description
+      this.form.body = this.blog.body
+      this.uploadedImage = this.blog.image
+      this.form.coverPhoto = this.blog.image
+    }
+    console.log(this.form.coverPhoto);
+  },
   methods: {
     submitBlog() {
-      this.form.coverPhoto = this.photo
-      var data = new FormData()
-
-      data.append('title', this.form.title)
-      data.append('description', this.form.description)
-      data.append('coverPhoto', this.photo)
-      data.append('body', this.form.body);
-      data.append('bag', 'blogForm');
-
-      this.form.post(route("admin.blog.add"), {
-        preserveScroll: true,
-      });
+        this.form.post(route("admin.blog.add"), {
+          preserveScroll: true,
+        });
+    },
+    updateBlog(blog) {
+      blog._method = "PUT"
+      blog.title = this.form.title
+      blog.description = this.form.description
+      blog.body = this.form.body
+      blog.coverPhoto = blog.image
+      this.$inertia.post(`/admin/blog/${blog.id}/update`, blog);
     },
     uploadPic(event) {
       // Reference to the DOM input element
+      this.uploadedImage = null;
       var input = event.target;
-      this.photo = input.files[0]
+      this.form.coverPhoto = input.files[0]
       // Ensure that you have a file before attempting to read it
       if (input.files && input.files[0]) {
         // create a new FileReader to read this image and convert to base64 format

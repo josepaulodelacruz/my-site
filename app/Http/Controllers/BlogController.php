@@ -22,6 +22,14 @@ class BlogController extends Controller
         return Inertia::render('Admin/Views/AddBlog');
     }
 
+    public function updateBlog(Blog $blog)
+    {
+        return Inertia::render('Admin/Views/AddBlog', [
+            'isUpdate' => true,
+            'blog' => $blog
+        ]);
+    }
+
     public function store(Request $request)
     {
 
@@ -57,6 +65,22 @@ class BlogController extends Controller
         $blog->delete();
 
         return back();
+    }
+
+    public function update(Request $request)
+    {
+        $request->validateWithBag('blogForm', [
+            'title' => 'required',
+            'description' => 'required',
+            'body' => 'required',
+        ]);
+
+
+        if($request->has('id')) {
+            $request->user()->blogs()->find($request->id)->update($request->all());
+            return redirect()->route('admin.blog');
+        }
+
     }
 
 }

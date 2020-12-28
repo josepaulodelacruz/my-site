@@ -1936,6 +1936,27 @@ module.exports = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Jetstream_DialogModal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Jetstream/DialogModal */ "./resources/js/Jetstream/DialogModal.vue");
+/* harmony import */ var _Jetstream_SecondaryButton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Jetstream/SecondaryButton */ "./resources/js/Jetstream/SecondaryButton.vue");
+/* harmony import */ var _Jetstream_DangerButton__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/Jetstream/DangerButton */ "./resources/js/Jetstream/DangerButton.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -1974,8 +1995,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['blog'],
+  components: {
+    JetDialogModal: _Jetstream_DialogModal__WEBPACK_IMPORTED_MODULE_1__["default"],
+    JetSecondaryButton: _Jetstream_SecondaryButton__WEBPACK_IMPORTED_MODULE_2__["default"],
+    JetDangerButton: _Jetstream_DangerButton__WEBPACK_IMPORTED_MODULE_3__["default"]
+  },
+  data: function data() {
+    return {
+      isDelete: false
+    };
+  },
   methods: {
     convertDate: function convertDate(date) {
       return moment__WEBPACK_IMPORTED_MODULE_0___default()(date).format('MMMM Do YYYY');
@@ -1986,6 +2020,7 @@ __webpack_require__.r(__webpack_exports__);
     blogDelete: function blogDelete(b) {
       b._method = "DELETE";
       this.$inertia.post("/admin/blog/".concat(b.id, "/delete"), b);
+      this.isDelete = true;
     }
   }
 });
@@ -3735,6 +3770,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -3745,6 +3784,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['isUpdate', 'blog'],
   components: {
     JetActionMessage: _Jetstream_ActionMessage__WEBPACK_IMPORTED_MODULE_6__["default"],
     JetButton: _Jetstream_Button__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -3770,25 +3810,40 @@ __webpack_require__.r(__webpack_exports__);
       })
     };
   },
+  created: function created() {
+    console.log(this.isUpdate);
+
+    if (this.isUpdate) {
+      this.form.title = this.blog.title;
+      this.form.description = this.blog.description;
+      this.form.body = this.blog.body;
+      this.uploadedImage = this.blog.image;
+      this.form.coverPhoto = this.blog.image;
+    }
+
+    console.log(this.form.coverPhoto);
+  },
   methods: {
     submitBlog: function submitBlog() {
-      this.form.coverPhoto = this.photo;
-      var data = new FormData();
-      data.append('title', this.form.title);
-      data.append('description', this.form.description);
-      data.append('coverPhoto', this.photo);
-      data.append('body', this.form.body);
-      data.append('bag', 'blogForm');
       this.form.post(route("admin.blog.add"), {
         preserveScroll: true
       });
+    },
+    updateBlog: function updateBlog(blog) {
+      blog._method = "PUT";
+      blog.title = this.form.title;
+      blog.description = this.form.description;
+      blog.body = this.form.body;
+      blog.coverPhoto = blog.image;
+      this.$inertia.post("/admin/blog/".concat(blog.id, "/update"), blog);
     },
     uploadPic: function uploadPic(event) {
       var _this = this;
 
       // Reference to the DOM input element
+      this.uploadedImage = null;
       var input = event.target;
-      this.photo = input.files[0]; // Ensure that you have a file before attempting to read it
+      this.form.coverPhoto = input.files[0]; // Ensure that you have a file before attempting to read it
 
       if (input.files && input.files[0]) {
         // create a new FileReader to read this image and convert to base64 format
@@ -45827,13 +45882,13 @@ var render = function() {
     "article",
     {
       staticClass:
-        "flex-col overflow-hidden bg-white w-56 h-56 mr-3 mb-6 rounded-lg shadow-lg",
+        "overflow-hidden bg-white w-64 h-64 mr-3 mb-6 rounded-lg shadow-lg",
       on: { click: _vm.viewBlog }
     },
     [
       _c("a", { attrs: { href: "#" } }, [
         _c("img", {
-          staticClass: "block h-1/2 w-full object-fill",
+          staticClass: "block h-1/2 w-full object-cover",
           attrs: { alt: "Placeholder", src: "/images/blogs/" + _vm.blog.image }
         })
       ]),
@@ -45849,7 +45904,8 @@ var render = function() {
             _c(
               "a",
               {
-                staticClass: "no-underline hover:underline text-black",
+                staticClass:
+                  "no-underline hover:underline text-black text-sm font-bold",
                 attrs: { href: "#" }
               },
               [
@@ -45881,85 +45937,165 @@ var render = function() {
         [
           _vm._m(0),
           _vm._v(" "),
-          _c("div", { staticClass: "flex" }, [
-            _c(
-              "button",
-              {
-                staticClass: "mr-1 bg-red-500 rounded-lg p-1",
-                on: {
-                  click: function($event) {
-                    return _vm.blogDelete(_vm.blog)
-                  }
-                }
-              },
-              [
-                _c(
-                  "svg",
-                  {
-                    attrs: {
-                      xmlns: "http://www.w3.org/2000/svg",
-                      width: "24",
-                      height: "24",
-                      viewBox: "0 0 24 24",
-                      fill: "none",
-                      stroke: "#ffffff",
-                      "stroke-width": "2",
-                      "stroke-linecap": "round",
-                      "stroke-linejoin": "round"
-                    }
-                  },
-                  [
-                    _c("polyline", { attrs: { points: "3 6 5 6 21 6" } }),
-                    _c("path", {
-                      attrs: {
-                        d:
-                          "M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
-                      }
-                    }),
-                    _c("line", {
-                      attrs: { x1: "10", y1: "11", x2: "10", y2: "17" }
-                    }),
-                    _c("line", {
-                      attrs: { x1: "14", y1: "11", x2: "14", y2: "17" }
-                    })
-                  ]
-                )
-              ]
-            ),
-            _vm._v(" "),
-            _c("button", { staticClass: " bg-blue-500 rounded-lg p-1" }, [
+          _c(
+            "div",
+            { staticClass: "flex" },
+            [
               _c(
-                "svg",
+                "button",
                 {
-                  attrs: {
-                    xmlns: "http://www.w3.org/2000/svg",
-                    width: "24",
-                    height: "24",
-                    viewBox: "0 0 24 24",
-                    fill: "none",
-                    stroke: "#ffffff",
-                    "stroke-width": "2",
-                    "stroke-linecap": "round",
-                    "stroke-linejoin": "round"
+                  staticClass: "mr-1 bg-red-500 rounded-lg p-1",
+                  on: {
+                    click: function($event) {
+                      _vm.isDelete = true
+                    }
                   }
                 },
                 [
-                  _c("path", {
-                    attrs: {
-                      d:
-                        "M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"
-                    }
-                  }),
-                  _c("polygon", {
-                    attrs: { points: "18 2 22 6 12 16 8 16 8 12 18 2" }
-                  })
+                  _c(
+                    "svg",
+                    {
+                      attrs: {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        width: "24",
+                        height: "24",
+                        viewBox: "0 0 24 24",
+                        fill: "none",
+                        stroke: "#ffffff",
+                        "stroke-width": "2",
+                        "stroke-linecap": "round",
+                        "stroke-linejoin": "round"
+                      }
+                    },
+                    [
+                      _c("polyline", { attrs: { points: "3 6 5 6 21 6" } }),
+                      _c("path", {
+                        attrs: {
+                          d:
+                            "M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+                        }
+                      }),
+                      _c("line", {
+                        attrs: { x1: "10", y1: "11", x2: "10", y2: "17" }
+                      }),
+                      _c("line", {
+                        attrs: { x1: "14", y1: "11", x2: "14", y2: "17" }
+                      })
+                    ]
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "inertia-link",
+                {
+                  staticClass: " bg-blue-500 rounded-lg p-1",
+                  attrs: { href: _vm.route("admin.blog.update", _vm.blog) }
+                },
+                [
+                  _c(
+                    "svg",
+                    {
+                      attrs: {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        width: "24",
+                        height: "24",
+                        viewBox: "0 0 24 24",
+                        fill: "none",
+                        stroke: "#ffffff",
+                        "stroke-width": "2",
+                        "stroke-linecap": "round",
+                        "stroke-linejoin": "round"
+                      }
+                    },
+                    [
+                      _c("path", {
+                        attrs: {
+                          d:
+                            "M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"
+                        }
+                      }),
+                      _c("polygon", {
+                        attrs: { points: "18 2 22 6 12 16 8 16 8 12 18 2" }
+                      })
+                    ]
+                  )
                 ]
               )
-            ])
-          ])
+            ],
+            1
+          )
         ]
-      )
-    ]
+      ),
+      _vm._v(" "),
+      _c("jet-dialog-modal", {
+        attrs: { show: _vm.isDelete },
+        on: {
+          close: function($event) {
+            _vm.isDelete = false
+          }
+        },
+        scopedSlots: _vm._u([
+          {
+            key: "title",
+            fn: function() {
+              return [
+                _vm._v(
+                  "\n            Delete Blog " +
+                    _vm._s(_vm.blog.title) +
+                    "\n        "
+                )
+              ]
+            },
+            proxy: true
+          },
+          {
+            key: "content",
+            fn: function() {
+              return [
+                _vm._v(
+                  "\n            Are you sure you want to delete this Blog? Once your blog is Deleted, all of it will be permanently deleted.\n        "
+                )
+              ]
+            },
+            proxy: true
+          },
+          {
+            key: "footer",
+            fn: function() {
+              return [
+                _c(
+                  "jet-secondary-button",
+                  {
+                    nativeOn: {
+                      click: function($event) {
+                        _vm.isDelete = false
+                      }
+                    }
+                  },
+                  [_vm._v("\n                Cancel\n            ")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "jet-danger-button",
+                  {
+                    staticClass: "ml-2",
+                    nativeOn: {
+                      click: function($event) {
+                        return _vm.blogDelete(_vm.blog)
+                      }
+                    }
+                  },
+                  [_vm._v("\n                Delete Blog\n            ")]
+                )
+              ]
+            },
+            proxy: true
+          }
+        ])
+      })
+    ],
+    1
   )
 }
 var staticRenderFns = [
@@ -45975,14 +46111,6 @@ var staticRenderFns = [
         attrs: { href: "#" }
       },
       [
-        _c("img", {
-          staticClass: "block rounded-full",
-          attrs: {
-            alt: "Placeholder",
-            src: "https://picsum.photos/32/32/?random"
-          }
-        }),
-        _vm._v(" "),
         _c("p", { staticClass: "ml-2 text-sm truncate" }, [
           _vm._v("\n                Jose Paulo Dela Cruz\n            ")
         ])
@@ -49226,7 +49354,13 @@ var render = function() {
                   staticClass:
                     "font-semibold text-xl text-gray-800 leading-tight"
                 },
-                [_vm._v("\n            Add Blog\n        ")]
+                [
+                  _vm._v(
+                    "\n            " +
+                      _vm._s(_vm.isUpdate ? "Update" : "Add") +
+                      " Blog\n        "
+                  )
+                ]
               )
             ]
           },
@@ -49246,7 +49380,13 @@ var render = function() {
               {
                 key: "title",
                 fn: function() {
-                  return [_vm._v("\n                Add Blog\n            ")]
+                  return [
+                    _vm._v(
+                      "\n                " +
+                        _vm._s(_vm.isUpdate ? "Update" : "Add") +
+                        " Blog\n            "
+                    )
+                  ]
                 },
                 proxy: true
               },
@@ -49337,15 +49477,37 @@ var render = function() {
                       _vm._v("\n                    Saved.\n                ")
                     ]),
                     _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass:
-                          "bg-gray-500 p-2 rounded-lg text-white font-bold",
-                        on: { click: _vm.submitBlog }
-                      },
-                      [_vm._v("\n                    ADD\n                ")]
-                    )
+                    _vm.isUpdate
+                      ? _c(
+                          "button",
+                          {
+                            staticClass:
+                              "bg-gray-500 p-2 rounded-lg text-white font-bold",
+                            on: {
+                              click: function($event) {
+                                return _vm.updateBlog(_vm.blog)
+                              }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                    Update\n                "
+                            )
+                          ]
+                        )
+                      : _c(
+                          "button",
+                          {
+                            staticClass:
+                              "bg-gray-500 p-2 rounded-lg text-white font-bold",
+                            on: { click: _vm.submitBlog }
+                          },
+                          [
+                            _vm._v(
+                              "\n                    Add\n                "
+                            )
+                          ]
+                        )
                   ]
                 },
                 proxy: true
@@ -49399,12 +49561,15 @@ var render = function() {
                   }
                 }),
                 _vm._v(" "),
-                _vm.uploadedImage
-                  ? _c("img", {
-                      staticClass: "h-56 object-fill",
-                      attrs: { src: _vm.uploadedImage, alt: "" }
-                    })
-                  : _vm._e()
+                _c("img", {
+                  staticClass: "h-56 object-fill",
+                  attrs: {
+                    src: !_vm.form.coverPhoto
+                      ? "/images/blogs/" + _vm.uploadedImage
+                      : _vm.uploadedImage,
+                    alt: ""
+                  }
+                })
               ],
               1
             ),
@@ -49514,97 +49679,92 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "grid grid-cols-1" },
-        [
-          _c(
-            "div",
-            { staticClass: "inline-block px-10 lg:flex lg:px-0" },
-            [
-              _c("jet-input", {
-                ref: "current_password",
-                staticClass: "mt-1 block w-full",
-                attrs: {
-                  placeholder: "Search Blog",
-                  type: "text",
-                  autocomplete: "current-password"
-                }
-              }),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass:
-                    "float-right m-1 bg-blue-500 rounded-lg p-3 text-white font-bold"
-                },
-                [_vm._v("\n                Search\n            ")]
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass: "flex w-full px-10 mt-3 mb-2 justify-between lg:px-0"
-            },
-            [
-              _c(
-                "h2",
-                {
-                  staticClass:
-                    "text-3xl font-bold shadow-text-3xl text-color-black"
-                },
-                [_vm._v("Blog Posts")]
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "flex justify-around" },
-                [
-                  _c(
-                    "inertia-link",
-                    {
-                      staticClass:
-                        "float-right m-1 bg-green-500 rounded-lg p-1 text-white font-bold",
-                      attrs: { href: _vm.route("admin.blog.new") }
-                    },
-                    [_vm._v("\n                    Add Blog\n                ")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass:
-                        "float-right m-1 bg-red-500 rounded-lg p-1 text-white font-bold"
-                    },
-                    [
-                      _vm._v(
-                        "\n                    Delete Blog\n                "
-                      )
-                    ]
-                  )
-                ],
-                1
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _vm._l(_vm.blogs, function(blog) {
-            return _c(
-              "div",
+      _c("div", { staticClass: "grid grid-cols-1" }, [
+        _c(
+          "div",
+          { staticClass: "inline-block px-10 lg:flex lg:px-0" },
+          [
+            _c("jet-input", {
+              ref: "current_password",
+              staticClass: "mt-1 block w-full",
+              attrs: {
+                placeholder: "Search Blog",
+                type: "text",
+                autocomplete: "current-password"
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "button",
               {
                 staticClass:
-                  "flex flex-wrap px-10 w-full justify-center mb-5 lg:justify-start lg:px-0"
+                  "float-right m-1 bg-blue-500 rounded-lg p-3 text-white font-bold"
               },
-              [_c("BlogCard", { attrs: { blog: blog } })],
+              [_vm._v("\n                Search\n            ")]
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "flex w-full px-10 mt-3 mb-2 justify-between lg:px-0"
+          },
+          [
+            _c(
+              "h2",
+              {
+                staticClass:
+                  "text-3xl font-bold shadow-text-3xl text-color-black"
+              },
+              [_vm._v("Blog Posts")]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "flex justify-around" },
+              [
+                _c(
+                  "inertia-link",
+                  {
+                    staticClass:
+                      "float-right m-1 bg-green-500 rounded-lg p-1 text-white font-bold",
+                    attrs: { href: _vm.route("admin.blog.new") }
+                  },
+                  [_vm._v("\n                    Add Blog\n                ")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass:
+                      "float-right m-1 bg-red-500 rounded-lg p-1 text-white font-bold"
+                  },
+                  [
+                    _vm._v(
+                      "\n                    Delete Blog\n                "
+                    )
+                  ]
+                )
+              ],
               1
             )
-          })
-        ],
-        2
-      )
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass:
+              "flex flex-wrap px-10 w-full justify-center mb-5 lg:justify-start lg:px-0"
+          },
+          _vm._l(_vm.blogs, function(blog) {
+            return _c("BlogCard", { key: blog.id, attrs: { blog: blog } })
+          }),
+          1
+        )
+      ])
     ]
   )
 }
