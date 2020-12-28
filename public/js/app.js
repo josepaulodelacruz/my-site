@@ -3927,6 +3927,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -49663,9 +49677,43 @@ var render = function() {
             "mx-auto py-8 justify-between h-56 px-10 lg:px-0 lg:flex "
         },
         [
-          _c("div", { staticClass: "bg-white shadow mr-5 rounded-lg w-full" }, [
-            _vm._v("\n            test\n        ")
-          ]),
+          _c(
+            "div",
+            {
+              staticClass:
+                "flex bg-white justify-between shadow mr-5 rounded-lg w-full"
+            },
+            [
+              _c("div", { staticClass: "flex p-6" }, [
+                _c("h2", { staticClass: "text-3xl" }, [
+                  _vm._v("\n                    Blogs\n                ")
+                ])
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "flex flex-col items-center rounded-br-lg rounded-tr-lg justify-center flex-grow bg-blue-500"
+                },
+                [
+                  _c("h2", { staticClass: "text-white text-2xl" }, [
+                    _vm._v(
+                      "\n                    Total Blogs:\n                "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("h2", { staticClass: "text-white text-2xl" }, [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(_vm.blogs.length) +
+                        "\n                "
+                    )
+                  ])
+                ]
+              )
+            ]
+          ),
           _vm._v(" "),
           _c(
             "div",

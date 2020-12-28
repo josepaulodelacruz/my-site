@@ -7,8 +7,22 @@
         </template>
         <!-- Blog Section -->
         <div class="mx-auto py-8 justify-between h-56 px-10 lg:px-0 lg:flex ">
-            <div class="bg-white shadow mr-5 rounded-lg w-full">
-                test
+            <div class="flex bg-white justify-between shadow mr-5 rounded-lg w-full">
+                <div class="flex p-6">
+                    <h2 class="text-3xl">
+                        Blogs
+                    </h2>
+
+                </div>
+                <div class="flex flex-col items-center rounded-br-lg rounded-tr-lg justify-center flex-grow bg-blue-500">
+                    <h2 class="text-white text-2xl">
+                        Total Blogs:
+                    </h2>
+                    <h2 class="text-white text-2xl">
+                        {{ blogs.length }}
+                    </h2>
+                </div>
+
             </div>
             <div class="bg-white shadow mr-5 rounded-lg w-full ">
                 test
