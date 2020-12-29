@@ -40,7 +40,7 @@
                     <button v-if="isUpdate" @click="updateBlog(blog)" class="bg-gray-500 p-2 rounded-lg text-white font-bold">
                         Update
                     </button>
-                    <button v-else="isUpdate" @click="submitBlog" class="bg-gray-500 p-2 rounded-lg text-white font-bold">
+                    <button v-else @click="submitBlog" class="bg-gray-500 p-2 rounded-lg text-white font-bold">
                         Add
                     </button>
 
@@ -51,13 +51,15 @@
                 <div class="flex-col flex-grow">
                     <jet-input-error :message="form.error('coverPhoto')"/>
                     <h2>Add Blog Cover Photo</h2>
-                    <div v-if="!uploadedImage" class="flex justify-center items-center bg-white h-56 rounded-lg shadow">
+                    <div v-if="!form.coverPhoto && !photo" class="flex justify-center items-center bg-white h-56 rounded-lg shadow">
                         <button class="bg-gray-200 h-24 w-24 flex items-center justify-center  rounded-full">
                             +
                         </button>
                     </div>
-                    <input type="file" accept="image/*" id="file-input" @change="uploadPic($event)" class="bg-gray-200 h-24 w-24 flex items-center justify-center  rounded-full">
-                    <img class="h-56 object-fill" :src="!form.coverPhoto ? '/images/blogs/' + uploadedImage : uploadedImage" alt="">
+                    <input v-if="!form.coverPhoto" type="file" accept="image/*" id="file-input" @change="uploadPic($event)" class="bg-gray-200 h-24 w-24 flex items-center justify-center  rounded-full">
+                    <img v-if="form.coverPhoto" :src="'/images/blogs/' + form.coverPhoto " alt="">
+                    <img v-if="!form.coverPhoto" class="h-56 object-fill" :src="uploadedImage" alt="">
+                    <img v-else class="h-56 object-fill" :src="uploadedImage" alt="">
 
                 </div>
 
@@ -115,18 +117,16 @@ export default {
   },
 
   created() {
-    console.log(this.isUpdate)
     if(this.isUpdate) {
       this.form.title = this.blog.title
       this.form.description = this.blog.description
       this.form.body = this.blog.body
-      this.uploadedImage = this.blog.image
       this.form.coverPhoto = this.blog.image
     }
-    console.log(this.form.coverPhoto);
   },
   methods: {
     submitBlog() {
+        this.form.coverPhoto = this.photo
         this.form.post(route("admin.blog.add"), {
           preserveScroll: true,
         });
@@ -137,13 +137,16 @@ export default {
       blog.description = this.form.description
       blog.body = this.form.body
       blog.coverPhoto = blog.image
-      this.$inertia.post(`/admin/blog/${blog.id}/update`, blog);
+      this.$inertia.put(`/admin/blog/${blog.id}/update`, blog);
+      // this.form.id = this.blog.id
+      // this.form.put(`/admin/blog/${blog.id}/update`);
+      // this.form.put(`/admin/blog/${blog.id}/update`);
     },
     uploadPic(event) {
       // Reference to the DOM input element
-      this.uploadedImage = null;
       var input = event.target;
-      this.form.coverPhoto = input.files[0]
+      this.photo = input.files[0]
+      this.form.coverPhoto = null
       // Ensure that you have a file before attempting to read it
       if (input.files && input.files[0]) {
         // create a new FileReader to read this image and convert to base64 format

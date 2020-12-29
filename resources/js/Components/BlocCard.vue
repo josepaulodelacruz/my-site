@@ -1,5 +1,6 @@
 <template>
-    <article @click="viewBlog" class="overflow-hidden bg-white w-64 h-64 mr-3 mb-6 rounded-lg shadow-lg">
+    <inertia-link :href="route('blog.view', blog)">
+    <article class="overflow-hidden bg-white w-64 h-64 mr-3 mb-6 rounded-lg shadow-lg">
         <a href="#">
             <img alt="Placeholder" class="block h-1/2 w-full object-cover" :src="'/images/blogs/' + blog.image">
         </a>
@@ -51,6 +52,7 @@
 
 
     </article>
+    </inertia-link>
 </template>
 
 <script>
@@ -77,7 +79,7 @@ export default {
       return moment(date).format('MMMM Do YYYY')
     },
     viewBlog() {
-      console.log(this.blog)
+      this.$inertia.get(route('blog.view'), this.blog);
     },
     blogDelete(b) {
       b._method = "DELETE"

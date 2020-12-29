@@ -22,6 +22,13 @@ class BlogController extends Controller
         return Inertia::render('Admin/Views/AddBlog');
     }
 
+    public function viewBlog(Blog $blog)
+    {
+        return Inertia::render('Blog/Index', [
+            'blog' => $blog
+        ]);
+    }
+
     public function updateBlog(Blog $blog)
     {
         return Inertia::render('Admin/Views/AddBlog', [
@@ -74,7 +81,6 @@ class BlogController extends Controller
             'description' => 'required',
             'body' => 'required',
         ]);
-
 
         if($request->has('id')) {
             $request->user()->blogs()->find($request->id)->update($request->all());
