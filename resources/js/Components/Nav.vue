@@ -1,5 +1,5 @@
 <template>
-  <nav class="bg-white w-full sm:inline-block  shadow p-6 lg:px-32 lg:inline-flex lg:justify-between ">
+  <nav class="w-full sm:inline-block p-6 lg:px-64 lg:inline-flex lg:justify-between" :class="scrollPosition > 0 ? 'bg-white shadow fixed' : 'bg-opacity absolute'">
       <ul class="flex justify-between">
           <li>
               test
@@ -38,7 +38,8 @@ export default {
   name: 'Nav',
   data(){
     return {
-      isOpen: true
+      isOpen: true,
+      scrollPosition: null,
     }
   },
   mounted() {
@@ -49,8 +50,13 @@ export default {
         this.isOpen = false
       }
     })
+    window.addEventListener('scroll', this.updateScroll);
   },
   methods: {
+    updateScroll() {
+      this.scrollPosition = window.scrollY
+      console.log(`scroll position ${this.scrollPosition}`)
+    },
     enter (el) {
       el.style.height = 'auto';
       const height = getComputedStyle(el).height;

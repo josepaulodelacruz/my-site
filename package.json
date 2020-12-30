@@ -27,6 +27,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "vue-scrollmagic": "^1.2.0",
         "vue-trix": "^1.2.0"
     }
 }
