@@ -1,5 +1,8 @@
 <template>
-  <nav class="w-full sm:inline-block p-6 lg:px-64 lg:inline-flex lg:justify-between" :class="scrollPosition > 0 ? 'bg-white shadow fixed' : 'bg-opacity absolute'">
+  <nav
+      class="w-full sm:inline-block py-6 px-12 md:px-32 lg:px-64 lg:inline-flex z-10 lg:justify-between"
+      :class="[scrollPosition > 0 ? 'bg-white shadow fixed' : 'bg-opacity absolute']">
+<!--      :class="mobile ? [scrollPosition > 0 ? 'bg-white shadow fixed' : 'bg-opacity absolute'] : ['bg-white fixed shadow']">-->
       <ul class="flex justify-between">
           <li>
               test
@@ -16,18 +19,10 @@
           @after-enter="afterEnter"
           @leave="leave">
         <ul v-show="isOpen" class="lg:inline-flex">
-            <li class="border-b-2 mb-1 lg:mx-3 lg:px-4 ">
-                Home
-            </li>
-            <li class="border-b-2 mb-1 lg:mx-3 lg:px-4">
-                Blog
-            </li>
-            <li class="border-b-2 mb-1 lg:mx-3 lg:px-4">
-                Shop
-            </li>
-            <li class="border-b-2 mb-1 lg:mx-3 lg:px-4">
-                Login
-            </li>
+            <li><a class="my-1 text-sm text-gray-700 font-medium hover:text-indigo-500 md:mx-4 md:my-0" href="#">Home</a></li>
+            <li><a class="my-1 text-sm text-gray-700 font-medium hover:text-indigo-500 md:mx-4 md:my-0" href="#">Shop</a></li>
+            <li><a class="my-1 text-sm text-gray-700 font-medium hover:text-indigo-500 md:mx-4 md:my-0" href="#">Contact</a></li>
+            <li><a class="my-1 text-sm text-gray-700 font-medium hover:text-indigo-500 md:mx-4 md:my-0" href="#">About</a></li>
         </ul>
       </transition>
   </nav>
@@ -40,14 +35,17 @@ export default {
     return {
       isOpen: true,
       scrollPosition: null,
+      mobile: null,
     }
   },
   mounted() {
     window.addEventListener('resize', () => {
       if(window.innerWidth > 1024) {
         this.isOpen = true
+        this.mobile = true;
       } else {
         this.isOpen = false
+        this.mobile = false;
       }
     })
     window.addEventListener('scroll', this.updateScroll);
@@ -55,7 +53,6 @@ export default {
   methods: {
     updateScroll() {
       this.scrollPosition = window.scrollY
-      console.log(`scroll position ${this.scrollPosition}`)
     },
     enter (el) {
       el.style.height = 'auto';

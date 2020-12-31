@@ -2068,17 +2068,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Nav',
   data: function data() {
     return {
       isOpen: true,
-      scrollPosition: null
+      scrollPosition: null,
+      mobile: null
     };
   },
   mounted: function mounted() {
@@ -2087,8 +2083,10 @@ __webpack_require__.r(__webpack_exports__);
     window.addEventListener('resize', function () {
       if (window.innerWidth > 1024) {
         _this.isOpen = true;
+        _this.mobile = true;
       } else {
         _this.isOpen = false;
+        _this.mobile = false;
       }
     });
     window.addEventListener('scroll', this.updateScroll);
@@ -2096,7 +2094,6 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     updateScroll: function updateScroll() {
       this.scrollPosition = window.scrollY;
-      console.log("scroll position ".concat(this.scrollPosition));
     },
     enter: function enter(el) {
       el.style.height = 'auto';
@@ -4180,6 +4177,40 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4190,18 +4221,28 @@ __webpack_require__.r(__webpack_exports__);
     Nav: _Components_Nav__WEBPACK_IMPORTED_MODULE_1__["default"],
     JetInput: _Jetstream_Input__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
+  data: function data() {
+    return {
+      isMobile: null,
+      windowWith: window.innerWidth
+    };
+  },
   mounted: function mounted() {
-    var scene2 = this.$scrollmagic.scene({
-      // ID of element where animation starts
-      triggerElement: '#trigger1',
-      // {0,0.5,1} - animations starts from {top,center,end} of window
-      triggerHook: 0.1,
-      // Duration of animation
-      duration: 300
-    }).addIndicators({
-      name: '2 (duration: 300)'
-    }).setPin('#pin1');
-    this.$scrollmagic.addScene(scene2);
+    if (this.windowWith > 1024) {
+      this.isMobile = false;
+      var scene2 = this.$scrollmagic.scene({
+        // ID of element where animation starts
+        triggerElement: '#trigger1',
+        // {0,0.5,1} - animations starts from {top,center,end} of window
+        triggerHook: 0.1,
+        // Duration of animation
+        duration: this.$refs.container.clientHeight / 2
+      }) // .addIndicators({ name: '2 (duration: 300)' })
+      .setPin('#pin1');
+      this.$scrollmagic.addScene(scene2);
+    } else {
+      this.isMobile = true;
+    }
   }
 });
 
@@ -46521,13 +46562,14 @@ var render = function() {
     "nav",
     {
       staticClass:
-        "w-full sm:inline-block p-6 lg:px-64 lg:inline-flex lg:justify-between",
-      class:
+        "w-full sm:inline-block py-6 px-12 md:px-32 lg:px-64 lg:inline-flex z-10 lg:justify-between",
+      class: [
         _vm.scrollPosition > 0 ? "bg-white shadow fixed" : "bg-opacity absolute"
+      ]
     },
     [
       _c("ul", { staticClass: "flex justify-between" }, [
-        _c("li", [_vm._v("\n            test\n        ")]),
+        _c("li", [_vm._v("\n              test\n          ")]),
         _vm._v(" "),
         _c("div", { staticClass: "block lg:hidden" }, [
           _c(
@@ -46588,20 +46630,52 @@ var render = function() {
               staticClass: "lg:inline-flex"
             },
             [
-              _c("li", { staticClass: "border-b-2 mb-1 lg:mx-3 lg:px-4 " }, [
-                _vm._v("\n              Home\n          ")
+              _c("li", [
+                _c(
+                  "a",
+                  {
+                    staticClass:
+                      "my-1 text-sm text-gray-700 font-medium hover:text-indigo-500 md:mx-4 md:my-0",
+                    attrs: { href: "#" }
+                  },
+                  [_vm._v("Home")]
+                )
               ]),
               _vm._v(" "),
-              _c("li", { staticClass: "border-b-2 mb-1 lg:mx-3 lg:px-4" }, [
-                _vm._v("\n              Blog\n          ")
+              _c("li", [
+                _c(
+                  "a",
+                  {
+                    staticClass:
+                      "my-1 text-sm text-gray-700 font-medium hover:text-indigo-500 md:mx-4 md:my-0",
+                    attrs: { href: "#" }
+                  },
+                  [_vm._v("Shop")]
+                )
               ]),
               _vm._v(" "),
-              _c("li", { staticClass: "border-b-2 mb-1 lg:mx-3 lg:px-4" }, [
-                _vm._v("\n              Shop\n          ")
+              _c("li", [
+                _c(
+                  "a",
+                  {
+                    staticClass:
+                      "my-1 text-sm text-gray-700 font-medium hover:text-indigo-500 md:mx-4 md:my-0",
+                    attrs: { href: "#" }
+                  },
+                  [_vm._v("Contact")]
+                )
               ]),
               _vm._v(" "),
-              _c("li", { staticClass: "border-b-2 mb-1 lg:mx-3 lg:px-4" }, [
-                _vm._v("\n              Login\n          ")
+              _c("li", [
+                _c(
+                  "a",
+                  {
+                    staticClass:
+                      "my-1 text-sm text-gray-700 font-medium hover:text-indigo-500 md:mx-4 md:my-0",
+                    attrs: { href: "#" }
+                  },
+                  [_vm._v("About")]
+                )
               ])
             ]
           )
@@ -50389,7 +50463,8 @@ var render = function() {
       _c(
         "div",
         {
-          staticClass: "flex bg-blue-500 justify-center items-center h-64 px-64"
+          staticClass:
+            "flex flex-grow bg-blue-500 justify-center items-center h-64 lg:px-64"
         },
         [
           _c(
@@ -50405,19 +50480,19 @@ var render = function() {
       _c(
         "div",
         {
-          staticClass: "flex justify-start mt-12 items-start px-64",
-          attrs: { id: "trigger1" }
+          staticClass:
+            "flex justify-start items-start px-12 mt-12 md:px-32 lg:px-64"
         },
         [
-          _c("div", { staticClass: "flex-1" }, [
+          _c("div", { staticClass: "flex-1", attrs: { id: "trigger1" } }, [
             _vm._m(1),
             _vm._v(" "),
             _c("div", { staticClass: "flex-col" }, [
               _c("p", { staticClass: "text-2xl" }, [
                 _vm._v(
-                  "\n                  " +
+                  "\n                    " +
                     _vm._s(_vm.blog.description) +
-                    "\n              "
+                    "\n                "
                 )
               ]),
               _vm._v(" "),
@@ -50433,33 +50508,41 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "flex-col self-start", attrs: { id: "pin1" } },
-            [
-              _c("p", { staticClass: "text-3xl font-bold" }, [
-                _vm._v("Search")
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "border-b-2" }),
-              _vm._v(" "),
-              _c(
+          !_vm.isMobile
+            ? _c(
                 "div",
-                { staticClass: "py-6" },
+                {
+                  staticClass:
+                    "invisible lg:visible lg:w-1/4 lg:flex-col lg:self-start",
+                  attrs: { id: "pin1" }
+                },
                 [
-                  _c("jet-input", {
-                    staticClass: "mt-1 block w-full rounded-full",
-                    attrs: { type: "text" }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _vm._m(2)
-            ]
-          )
+                  _c("p", { staticClass: "text-3xl font-bold" }, [
+                    _vm._v("Search")
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "border-b-2" }),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "py-6" },
+                    [
+                      _c("jet-input", {
+                        staticClass: "mt-1 block w-full rounded-full",
+                        attrs: { type: "text" }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _vm._m(2)
+                ]
+              )
+            : _vm._e()
         ]
-      )
+      ),
+      _vm._v(" "),
+      _vm._m(3)
     ],
     1
   )
@@ -50499,7 +50582,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "flex-col" }, [
+    return _c("div", { staticClass: "flex-col justify-start" }, [
       _c("div", { staticClass: "flex justify-evenly mb-6 border-b-2" }, [
         _c("p", { staticClass: "text-lg font-bold" }, [_vm._v("Popular")]),
         _vm._v(" "),
@@ -50578,6 +50661,184 @@ var staticRenderFns = [
         ])
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "footer",
+      {
+        staticClass:
+          "footer bg-gray-800 relative pt-1 border-b-2 border-blue-700"
+      },
+      [
+        _c("div", { staticClass: "container mx-auto px-6" }, [
+          _c("div", { staticClass: "sm:flex sm:mt-8" }, [
+            _c(
+              "div",
+              {
+                staticClass:
+                  "mt-8 sm:mt-0 sm:w-full sm:px-8 flex flex-col md:flex-row justify-between"
+              },
+              [
+                _c("div", { staticClass: "flex flex-col" }, [
+                  _c(
+                    "span",
+                    { staticClass: "font-bold text-white uppercase mb-2" },
+                    [_vm._v("Footer header 1")]
+                  ),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "my-2" }, [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "text-white  text-md hover:text-blue-500",
+                        attrs: { href: "#" }
+                      },
+                      [_vm._v("link 1")]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "my-2" }, [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "text-white  text-md hover:text-blue-500",
+                        attrs: { href: "#" }
+                      },
+                      [_vm._v("link 1")]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "my-2" }, [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "text-white  text-md hover:text-blue-500",
+                        attrs: { href: "#" }
+                      },
+                      [_vm._v("link 1")]
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "flex flex-col" }, [
+                  _c(
+                    "span",
+                    {
+                      staticClass:
+                        "font-bold text-white uppercase mt-4 md:mt-0 mb-2"
+                    },
+                    [_vm._v("Footer header 2")]
+                  ),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "my-2" }, [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "text-white text-md hover:text-blue-500",
+                        attrs: { href: "#" }
+                      },
+                      [_vm._v("link 1")]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "my-2" }, [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "text-white  text-md hover:text-blue-500",
+                        attrs: { href: "#" }
+                      },
+                      [_vm._v("link 1")]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "my-2" }, [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "text-white text-md hover:text-blue-500",
+                        attrs: { href: "#" }
+                      },
+                      [_vm._v("link 1")]
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "flex flex-col" }, [
+                  _c(
+                    "span",
+                    {
+                      staticClass:
+                        "font-bold text-white uppercase mt-4 md:mt-0 mb-2"
+                    },
+                    [_vm._v("Footer header 3")]
+                  ),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "my-2" }, [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "text-white  text-md hover:text-blue-500",
+                        attrs: { href: "#" }
+                      },
+                      [_vm._v("link 1")]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "my-2" }, [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "text-white  text-md hover:text-blue-500",
+                        attrs: { href: "#" }
+                      },
+                      [_vm._v("link 1")]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "my-2" }, [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "text-white  text-md hover:text-blue-500",
+                        attrs: { href: "#" }
+                      },
+                      [_vm._v("link 1")]
+                    )
+                  ])
+                ])
+              ]
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "container mx-auto px-6" }, [
+          _c(
+            "div",
+            {
+              staticClass:
+                "mt-16 border-t-2 border-gray-300 flex flex-col items-center"
+            },
+            [
+              _c("div", { staticClass: "sm:w-2/3 text-center py-6" }, [
+                _c(
+                  "p",
+                  { staticClass: "text-sm text-gray-500 font-bold mb-2" },
+                  [
+                    _vm._v(
+                      "\n                        © 2020 by Jose Paulo\n                    "
+                    )
+                  ]
+                )
+              ])
+            ]
+          )
+        ])
+      ]
+    )
   }
 ]
 render._withStripped = true
