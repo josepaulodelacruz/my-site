@@ -50890,7 +50890,7 @@ var render = function() {
             [
               _c("thead", { staticClass: "border" }, [
                 _c("tr", [
-                  _c("th", { staticClass: "border text-left px-1" }, [
+                  _c("th", { staticClass: "border text-left px-2" }, [
                     _vm._v("No.")
                   ]),
                   _vm._v(" "),
@@ -50915,8 +50915,8 @@ var render = function() {
               _vm._l(_vm.tags, function(tag, index) {
                 return _c("tbody", { key: tag.id }, [
                   _c("tr", [
-                    _c("td", { staticClass: "text-left border px-1" }, [
-                      _vm._v(_vm._s(index + 1))
+                    _c("td", { staticClass: "text-left border px-2" }, [
+                      _vm._v(_vm._s(index + 1) + ".")
                     ]),
                     _vm._v(" "),
                     _c(

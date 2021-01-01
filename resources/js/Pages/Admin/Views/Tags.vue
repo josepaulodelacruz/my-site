@@ -32,7 +32,7 @@
             <table class="bg-white mt-10 rounded-lg p-6 shadow-lg table-auto w-full">
                 <thead class="border">
                     <tr>
-                        <th class="border text-left px-1">No.</th>
+                        <th class="border text-left px-2">No.</th>
                         <th class="border text-left p-4">Tags</th>
                         <th class="border text-left p-4">Created At</th>
                         <th class="border text-left p-4">Associated</th>
@@ -41,7 +41,7 @@
                 </thead>
                 <tbody v-for="(tag, index) in tags" :key="tag.id">
                     <tr>
-                        <td class="text-left border px-1">{{ index + 1 }}</td>
+                        <td class="text-left border px-2">{{ index + 1 }}.</td>
                         <td class="text-left border font-bold p-4">{{ tag.type }}</td>
                         <td class="text-left border p-4">{{ convertDate(tag.created_at) }}</td>
                         <td class="text-left border p-4">{{ tag.related }}</td>

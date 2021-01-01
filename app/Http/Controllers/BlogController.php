@@ -76,7 +76,7 @@ class BlogController extends Controller
             ]);
         }
 
-        return redirect()->route('admin.blog');
+        return redirect()->route('admin.blog')->with('message', 'Blog Successfully Added!');
     }
 
     public function destroy(Blog $blog)
