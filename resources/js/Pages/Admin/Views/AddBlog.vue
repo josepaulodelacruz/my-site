@@ -21,14 +21,39 @@
                         <jet-input-error
                             :message="form.error('title')"
                         />
-
-
                     </div>
 
                     <div class="col-span-6 sm:col-span-4">
                         <jet-label for="Description" value="Blog Description" />
                         <jet-input v-model="form.description" id="description" type="text" class="mt-1 block w-full"/>
                         <jet-input-error :message="form.error('description')"/>
+                    </div>
+
+                    <div class="col-span-6 sm:col-span-4">
+                        <jet-label for="Description" value="Tags" />
+                        <select @change="handleChange" class="bg-gray-200 p-4 rounded-lg shadow">
+                            <option v-for="(tag, index) in options"
+                                    :key="index"
+                                    :data-tag="tag.type"
+                                    :value="tag.type">
+                                {{ tag.type }}
+                            </option>
+                        </select>
+
+                        <div class="flex w-3/4 py-4 ">
+                            <ul class="flex flex-wrap items-center">
+                                <li v-for="tag in selectedTags" class="flex mr-1 shadow mt-2 py-1 px-3 bg-blue-500 text-black rounded-full">
+                                    <p class="text-white">
+                                        {{ tag }}
+                                    </p>
+                                    <p @click="deleteTag(tag)" class="text-white pl-2 text-left text-sm">
+                                        x
+                                    </p>
+                                </li>
+
+                            </ul>
+                        </div>
+
                     </div>
 
                 </template>
@@ -70,9 +95,7 @@
                     </div>
                     <jet-input-error :message="form.error('body')"/>
                 </div>
-
             </div>
-
         </div>
     </admin-layout>
 </template>
@@ -89,7 +112,7 @@ import JetSecondaryButton from '@/Jetstream/SecondaryButton'
 import VueTrix from 'vue-trix'
 
 export default {
-  props: ['isUpdate', 'blog'],
+  props: ['isUpdate', 'blog', 'tags'],
   components: {
     JetActionMessage,
     JetButton,
@@ -105,28 +128,55 @@ export default {
     return {
       uploadedImage: null,
       photo: null,
+      selectedTags: [],
+      options: [],
       form: this.$inertia.form({
         'title': null,
         'description': null,
         'body': null,
-        'coverPhoto': null
+        'coverPhoto': null,
+        'tags': null,
       }, {
         bag: 'blogForm'
       })
     }
   },
+  mounted() {
 
+  },
   created() {
     if(this.isUpdate) {
+      this.options = [{type: 'None'}]
       this.form.title = this.blog.title
       this.form.description = this.blog.description
       this.form.body = this.blog.body
       this.form.coverPhoto = this.blog.image
+      this.tags.map((a) => {
+          this.selectedTags.push(a.tag_type);
+      });
+    } else {
+      this.options = [{type: 'None'}, ...this.tags];
+
     }
   },
   methods: {
+    handleChange(e) {
+        if('None' !== e.target.options[e.target.options.selectedIndex].dataset.tag) {
+            this.selectedTags.push(e.target.options[e.target.options.selectedIndex].dataset.tag)
+            this.options = this.options.filter(el => el.type != e.target.options[e.target.options.selectedIndex].dataset.tag)
+        }
+        // if(e.target.options.selectedIndex > -0) {
+            // this.selectedTags.push(e.target.options[e.target.options.selectedIndex].dataset.tag)
+            // this.options = this.options.filter(el => el.type != e.target.options[e.target.options.selectedIndex].dataset.tag)
+        // }
+    },
+    deleteTag(tag) {
+        this.selectedTags = this.selectedTags.filter(el => el != tag)
+        this.options.push({type: tag})
+    },
     submitBlog() {
         this.form.coverPhoto = this.photo
+        this.form.tags = this.selectedTags;
         this.form.post(route("admin.blog.add"), {
           preserveScroll: true,
         });

@@ -1,15 +1,15 @@
 <template>
-    <inertia-link :href="route('blog.view', blog)">
+<!--    <inertia-link :href="route('blog.view', blog)">-->
     <article class="overflow-hidden bg-white w-64 h-64 mr-3 mb-6 rounded-lg shadow-lg">
-        <a href="#">
+        <inertia-link :href="route('blog.view', blog)">
             <img alt="Placeholder" class="block h-1/2 w-full object-cover" :src="'/images/blogs/' + blog.image">
-        </a>
+        </inertia-link>
 
         <header class="flex items-center justify-between leading-tight p-2 md:p-4">
             <h1 class="text-lg">
-                <a class="no-underline hover:underline text-black text-sm font-bold" href="#">
+                <inertia-link class="no-underline hover:underline text-black text-sm font-bold" :href="route('blog.view', blog)">
                     {{ blog.title }}
-                </a>
+                </inertia-link>
             </h1>
             <p class="text-grey-darker text-xs">
                 {{ convertDate(blog.created_at) }}
@@ -52,7 +52,7 @@
 
 
     </article>
-    </inertia-link>
+<!--    </inertia-link>-->
 </template>
 
 <script>
@@ -61,8 +61,7 @@ import JetDialogModal from '@/Jetstream/DialogModal'
 import JetSecondaryButton from '@/Jetstream/SecondaryButton'
 import JetDangerButton from '@/Jetstream/DangerButton'
 export default {
-  props: [
-    'blog',
+  props: [ 'blog',
   ],
   components: {
     JetDialogModal,

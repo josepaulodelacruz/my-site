@@ -71,10 +71,7 @@
                         <p class="text-lg font-bold">Tags</p>
                         <div class="border-b-2"></div>
                         <ul class="flex w-64 flex-wrap mt-4">
-                            <li class="border px-2 rounded-lg mr-2 mt-2">Networking</li>
-                            <li class="border px-2 rounded-lg mr-2 mt-2">Coding</li>
-                            <li class="border px-2 rounded-lg mr-2 mt-2">Gaming</li>
-                            <li class="border px-2 rounded-lg mr-2 mt-2">Shops</li>
+                            <li v-for="(tag, index) in tags" :key="index" class="border px-2 rounded-lg mr-2 mt-2">{{ tag.tag_type }}</li>
                         </ul>
                     </div>
                 </div>
@@ -123,7 +120,7 @@ import AppLayout from '@/Layouts/AppLayout'
 import Nav from '@/Components/Nav'
 import JetInput from '@/Jetstream/Input'
 export default {
-  props: ['blog'],
+  props: ['blog', 'tags'],
   components: {
     AppLayout,
     Nav,

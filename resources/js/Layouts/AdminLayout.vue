@@ -9,9 +9,6 @@
                 </div>
             </header>
 
-
-
-
             <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
                 <div class="max-w-7xl lg:px-10">
                     <slot />
@@ -22,7 +19,15 @@
         <!-- Modal Portal -->
         <portal-target name="modal" multiple>
         </portal-target>
-    </div>
+
+        <div class="bg-teal-100 absolute top-10 right-10 border-t-4 h-12 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md my-3" role="alert" v-if="$page.flash.message">
+            <div class="flex">
+                <div>
+                    <p class="text-sm">{{ $page.flash.message }}</p>
+                </div>
+            </div>
+        </div>
+   </div>
 </template>
 
 <script>
@@ -31,7 +36,5 @@ export default {
   components: {
     Sidebar
   },
-  methods: {
-  }
 }
 </script>

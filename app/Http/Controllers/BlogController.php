@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Blog;
+use App\Models\Tag;
+use App\Models\TagCollection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Inertia\Inertia;
@@ -13,27 +15,34 @@ class BlogController extends Controller
     {
         $blogs = $request->user()->blogs()->get();
         return Inertia::render('Admin/Views/Blog', [
-            'blogs' => $blogs
+            'blogs' => $blogs,
         ]);
     }
 
     public function addBlog()
     {
-        return Inertia::render('Admin/Views/AddBlog');
+        $tags = Tag::all();
+        return Inertia::render('Admin/Views/AddBlog', [
+            'tags' => $tags
+        ]);
     }
 
     public function viewBlog(Blog $blog)
     {
+        $tags = $blog->tagCollections;
         return Inertia::render('Blog/Index', [
-            'blog' => $blog
+            'blog' => $blog,
+            'tags' => $tags
         ]);
     }
 
     public function updateBlog(Blog $blog)
     {
+        $tags = $blog->tagCollections;
         return Inertia::render('Admin/Views/AddBlog', [
             'isUpdate' => true,
-            'blog' => $blog
+            'blog' => $blog,
+            'tags' => $tags
         ]);
     }
 
@@ -47,17 +56,25 @@ class BlogController extends Controller
             'coverPhoto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-
         $imageName = time() . '.' . $request->coverPhoto->extension();
 
         $request->coverPhoto->move(public_path('images/blogs'), $imageName);
 
-        $request->user()->blogs()->create([
+        $blog = $request->user()->blogs()->create([
             'title' => $request->title,
             'description' => $request->description,
             'body' => $request->body,
             'image' => $imageName
         ]);
+
+        foreach($request->tags as $key => $is_tag) {
+            $tag = Tag::where('type', $is_tag)->first();
+            TagCollection::create([
+                'blog_id' => $blog->id,
+                'tag_type' => $is_tag,
+                'tag_id' => $tag->id,
+            ]);
+        }
 
         return redirect()->route('admin.blog');
     }

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\TagController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -31,11 +32,14 @@ Route::middleware(['auth:sanctum', 'verified'])->delete('/admin/blog/{blog}/dele
 //Blog Public Route
 Route::get('/blog/{blog}', [BlogController::class, 'viewBlog'])->name('blog.view');
 
+//Tags route
+Route::get('/admin/tags', [TagController::class, 'index'])->name('tags');
+Route::post('/admin/tags', [TagController::class, 'store'])->name('tag.add');
+Route::delete('/admin/tags/{tag}/delete', [TagController::class, 'destroy'])->name('tag.delete');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/admin/projects', function () {
     return Inertia\Inertia::render('Admin/Views/Projects');
 })->name('admin.projects');
-
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia\Inertia::render('Dashboard');

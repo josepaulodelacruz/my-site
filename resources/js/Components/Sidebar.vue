@@ -51,11 +51,17 @@
                     class="flex items-center duration-200 mt-4 py-2 px-6 border-l-4 text-white">
                     Projects
                </inertia-link>
-                <inertia-link
-                    href="#"
-                    class="flex items-center duration-200 mt-4 py-2 px-6 border-l-4 text-white">
-                    Store
-                </inertia-link>
+               <inertia-link
+                   :href="route('tags')" 
+                   :class="route().current('tags') && 'bg-gray-600 bg-opacity-25 text-gray-100 border-gray-100'"
+                   class="flex items-center duration-200 mt-4 py-2 px-6 border-l-4 text-white">
+                   Tags
+               </inertia-link>
+               <inertia-link
+                   href="#"
+                   class="flex items-center duration-200 mt-4 py-2 px-6 border-l-4 text-white">
+                   Store
+               </inertia-link>
             </nav>
         </div>
     </div>
