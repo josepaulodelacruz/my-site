@@ -41,7 +41,7 @@
             <nav class="mt-10">
                 <inertia-link
                     :href="route('admin.blog')"
-                    :class="route().current('admin.blog') && 'bg-gray-600 bg-opacity-25 text-gray-100 border-gray-100'"
+                    :class="route().current() === 'admin.blog' || route().current() === 'admin.blog.new' ? 'bg-gray-600 bg-opacity-25 text-gray-100 border-gray-100' : null"
                     class="flex items-center duration-200 mt-4 py-2 px-6 border-l-4 text-white">
                     Blog
                 </inertia-link>
@@ -52,7 +52,7 @@
                     Projects
                </inertia-link>
                <inertia-link
-                   :href="route('tags')" 
+                   :href="route('tags')"
                    :class="route().current('tags') && 'bg-gray-600 bg-opacity-25 text-gray-100 border-gray-100'"
                    class="flex items-center duration-200 mt-4 py-2 px-6 border-l-4 text-white">
                    Tags

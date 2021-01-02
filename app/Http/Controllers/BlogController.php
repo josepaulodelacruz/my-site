@@ -29,9 +29,11 @@ class BlogController extends Controller
 
     public function viewBlog(Blog $blog)
     {
+        $blogs = $blog->nextBlog();
         $tags = $blog->tagCollections;
         return Inertia::render('Blog/Index', [
             'blog' => $blog,
+            'nextBlogs' => $blogs,
             'tags' => $tags
         ]);
     }
@@ -48,7 +50,6 @@ class BlogController extends Controller
 
     public function store(Request $request)
     {
-
         $request->validateWithBag('blogForm', [
             'title' => 'required',
             'description' => 'required',

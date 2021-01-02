@@ -17,6 +17,11 @@ class Blog extends Model
         'body',
     ];
 
+    public function nextBlog()
+    {
+        return $this::where('id', '!=', $this->id)->orderBy('created_at')->take(3)->get();
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

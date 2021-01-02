@@ -59,7 +59,6 @@
 
         </div>
         <!-- End of Blog Section-->
-
     </admin-layout>
 </template>
 
