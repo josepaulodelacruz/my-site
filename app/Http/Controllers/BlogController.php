@@ -27,6 +27,11 @@ class BlogController extends Controller
         ]);
     }
 
+    public function blogList()
+    {
+        return Inertia::render('BlogList/Index');
+    }
+
     public function viewBlog(Blog $blog)
     {
         $blogs = $blog->nextBlog();

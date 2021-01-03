@@ -31,6 +31,8 @@ Route::middleware(['auth:sanctum', 'verified'])->delete('/admin/blog/{blog}/dele
 
 //Blog Public Route
 Route::get('/blog/{blog}', [BlogController::class, 'viewBlog'])->name('blog.view');
+Route::get('/blogs', [BlogController::class, 'blogList'])->name('blogs');
+
 
 //Tags route
 Route::get('/admin/tags', [TagController::class, 'index'])->name('tags');
