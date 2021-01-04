@@ -4463,6 +4463,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -4549,12 +4550,57 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     Nav: _Components_Nav__WEBPACK_IMPORTED_MODULE_1__["default"],
     BlogLayout: _Layouts_BlogLayout__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  props: ['blogs', 'tags'],
+  data: function data() {
+    return {
+      isMobile: null,
+      windowWith: window.innerWidth
+    };
+  },
+  mounted: function mounted() {
+    if (this.windowWith > 1024) {
+      this.isMobile = false;
+    } else {
+      this.isMobile = true;
+    }
   }
 });
 
@@ -5505,7 +5551,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "#layout[data-v-30b55ef0] {\n}\nfooter[data-v-30b55ef0] {\n  /*-webkit-clip-path: polygon(0 0, 100% 0, 100% 87%, 0 100%);*/\n  /*clip-path: polygon(0 0, 100% 0, 100% 87%, 0 100%);*/\n}\n", ""]);
+exports.push([module.i, "#layout[data-v-30b55ef0] {\n  width: 100%;\n}\nfooter[data-v-30b55ef0] {\n  /*-webkit-clip-path: polygon(0 0, 100% 0, 100% 87%, 0 100%);*/\n  /*clip-path: polygon(0 0, 100% 0, 100% 87%, 0 100%);*/\n}\n", ""]);
 
 // exports
 
@@ -5524,7 +5570,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "#blog-banner[data-v-ae303024] {\n  /*background-image: -moz-linear-gradient(180deg, #5e2ced 0%, #a485fd 100%);*/\n  /*background-image: -webkit-linear-gradient(180deg, #5e2ced 0%, #a485fd 100%);*/\n  /*background-image: -ms-linear-gradient(180deg, #5e2ced 0%, #a485fd 100%);*/\n  background-image: -moz-linear-gradient(180deg, #5e2ced 0%, #a485fd 100%);\n  background: linear-gradient(180deg, #5e2ced 0%, #a485fd 100%);\n  transform-origin: bottom right;\n  /*-webkit-clip-path: polygon(0 0, 100% 0, 100% 87%, 0 100%);*/\n  /*clip-path: polygon(0 0, 100% 0, 100% 87%, 0 100%);*/\n}\n.banner[data-v-ae303024] {\n  position: absolute;\n  right: 0;\n  top: 0;\n  z-index: 1;\n  height: 16rem;\n}\n", ""]);
+exports.push([module.i, "#blog-banner[data-v-ae303024] {\n  /*background-image: -moz-linear-gradient(180deg, #5e2ced 0%, #a485fd 100%);*/\n  /*background-image: -webkit-linear-gradient(180deg, #5e2ced 0%, #a485fd 100%);*/\n  /*background-image: -ms-linear-gradient(180deg, #5e2ced 0%, #a485fd 100%);*/\n  background-image: -moz-linear-gradient(180deg, #5e2ced 0%, #a485fd 100%);\n  background: linear-gradient(180deg, #5e2ced 0%, #a485fd 100%);\n  transform-origin: bottom right;\n  /*-webkit-clip-path: polygon(0 0, 100% 0, 100% 87%, 0 100%);*/\n  /*clip-path: polygon(0 0, 100% 0, 100% 87%, 0 100%);*/\n}\n.banner[data-v-ae303024] {\n  position: absolute;\n  right: 0;\n  top: 0;\n  z-index: 1;\n  height: 16rem;\n}\n.banner-left[data-v-ae303024] {\n  position: absolute;\n  left: 0;\n  top: 0;\n  z-index: 10;\n  height: 16rem;\n  transform: scaleX(-1);\n  z-index: 1;\n}\n", ""]);
 
 // exports
 
@@ -5543,7 +5589,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "#trigger1[data-v-3a47f4a8] {\n}\n#blog-banner[data-v-3a47f4a8] {\n  /*background-image: -moz-linear-gradient(180deg, #5e2ced 0%, #a485fd 100%);*/\n  /*background-image: -webkit-linear-gradient(180deg, #5e2ced 0%, #a485fd 100%);*/\n  /*background-image: -ms-linear-gradient(180deg, #5e2ced 0%, #a485fd 100%);*/\n  background-image: -moz-linear-gradient(180deg, #5e2ced 0%, #a485fd 100%);\n  background: linear-gradient(180deg, #5e2ced 0%, #a485fd 100%);\n  transform-origin: bottom right;\n  z-index: 1;\n  -webkit-clip-path: polygon(0 0, 100% 0, 100% 87%, 0 100%);\n  clip-path: polygon(0 0, 100% 0, 100% 87%, 0 100%);\n}\n.banner[data-v-3a47f4a8] {\n  position: absolute;\n  right: 0; top: 0;\n  z-index: 10;\n  height: 40vh;\n}\n\n", ""]);
+exports.push([module.i, "#trigger1[data-v-3a47f4a8] {\n}\n#blog-banner[data-v-3a47f4a8] {\n  /*background-image: -moz-linear-gradient(180deg, #5e2ced 0%, #a485fd 100%);*/\n  /*background-image: -webkit-linear-gradient(180deg, #5e2ced 0%, #a485fd 100%);*/\n  /*background-image: -ms-linear-gradient(180deg, #5e2ced 0%, #a485fd 100%);*/\n  background-image: -moz-linear-gradient(180deg, #5e2ced 0%, #a485fd 100%);\n  background: linear-gradient(180deg, #5e2ced 0%, #a485fd 100%);\n  transform-origin: bottom right;\n  /*-webkit-clip-path: polygon(0 0, 100% 0, 100% 87%, 0 100%);*/\n  /*clip-path: polygon(0 0, 100% 0, 100% 87%, 0 100%);*/\n}\n.banner[data-v-3a47f4a8] {\n  position: absolute;\n  right: 0;\n  top: 0;\n  z-index: 1;\n  height: 16rem;\n}\n.banner-left[data-v-3a47f4a8] {\n  position: absolute;\n  left: 0;\n  top: 0;\n  z-index: 10;\n  height: 16rem;\n  transform: scaleX(-1);\n  z-index: 1;\n}\n.read-more[data-v-3a47f4a8]::after {\n  content: \" \";\n  display: block;\n  width: 0;\n  height: 2px;\n  background: #5e2ced;\n  transition: width 300ms;\n}\n.read-more[data-v-3a47f4a8]:hover {\n  color: #5e2ced;\n}\n.read-more[data-v-3a47f4a8]:hover::after {\n  width: 100%;\n}\n\n", ""]);
 
 // exports
 
@@ -49683,7 +49729,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "flex-col", attrs: { id: "layout" } },
+    { staticClass: "flex-col flex-grow", attrs: { id: "layout" } },
     [
       _c("Nav"),
       _vm._v(" "),
@@ -51491,6 +51537,11 @@ var render = function() {
                   attrs: { src: "/images/cover/banner_bg.png", alt: "" }
                 }),
                 _vm._v(" "),
+                _c("img", {
+                  staticClass: "banner-left",
+                  attrs: { src: "/images/cover/banner_bg.png", alt: "" }
+                }),
+                _vm._v(" "),
                 _c(
                   "h1",
                   {
@@ -51800,6 +51851,11 @@ var render = function() {
                   attrs: { src: "/images/cover/banner_bg.png", alt: "" }
                 }),
                 _vm._v(" "),
+                _c("img", {
+                  staticClass: "banner-left",
+                  attrs: { src: "/images/cover/banner_bg.png", alt: "" }
+                }),
+                _vm._v(" "),
                 _c(
                   "h1",
                   {
@@ -51835,8 +51891,89 @@ var render = function() {
           return [
             _c(
               "div",
-              { staticClass: "flex-1 bg-blue-400", attrs: { id: "trigger1" } },
-              [_vm._v("\n                test\n\n            ")]
+              { staticClass: "flex-1", attrs: { id: "trigger1" } },
+              _vm._l(_vm.blogs, function(blog) {
+                return _c(
+                  "div",
+                  { key: blog.id, staticClass: "flex-col mb-10 shadow-lg" },
+                  [
+                    _c("img", {
+                      staticClass: "object-cover h-64 w-full",
+                      attrs: { src: "images/blogs/" + blog.image, alt: "" }
+                    }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "p-10" }, [
+                      _c(
+                        "span",
+                        { staticClass: "text-gray-500 font-bold py-3" },
+                        [_vm._v("By: Jose")]
+                      ),
+                      _vm._v(" "),
+                      _c("h2", { staticClass: "font-bold text-lg py-3" }, [
+                        _vm._v(_vm._s(blog.title))
+                      ]),
+                      _vm._v(" "),
+                      _c("p", [_vm._v(_vm._s(blog.description))]),
+                      _vm._v(" "),
+                      _c(
+                        "ul",
+                        { staticClass: "flex w-1/2 flex-wrap mt-4" },
+                        _vm._l(blog.tags, function(t, index) {
+                          return _c(
+                            "li",
+                            {
+                              key: index,
+                              staticClass: "border px-2 rounded-lg mr-2 mt-2"
+                            },
+                            [_vm._v(_vm._s(t.tag_type))]
+                          )
+                        }),
+                        0
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "flex pt-4 items-center" },
+                        [
+                          _c(
+                            "inertia-link",
+                            {
+                              staticClass: "read-more pr-2",
+                              attrs: { href: _vm.route("blog.view", blog) }
+                            },
+                            [_vm._v("Read More")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "svg",
+                            {
+                              staticClass: "read-more",
+                              attrs: {
+                                xmlns: "http://www.w3.org/2000/svg",
+                                width: "18",
+                                height: "19",
+                                viewBox: "0 0 24 24",
+                                fill: "none",
+                                stroke: "#111",
+                                "stroke-width": "2",
+                                "stroke-linecap": "round",
+                                "stroke-linejoin": "round"
+                              }
+                            },
+                            [
+                              _c("path", {
+                                attrs: { d: "M5 12h13M12 5l7 7-7 7" }
+                              })
+                            ]
+                          )
+                        ],
+                        1
+                      )
+                    ])
+                  ]
+                )
+              }),
+              0
             )
           ]
         },
@@ -51846,7 +51983,55 @@ var render = function() {
         key: "content-right",
         fn: function() {
           return [
-            _c("div", {}, [_vm._v("\n                test\n\n            ")])
+            _c("div", { staticClass: "flex-col w-64 pl-10 hidden lg:block" }, [
+              _c("input", {
+                staticClass: "p-2 rounded-lg shadow",
+                attrs: { type: "text", placeholder: "Search" }
+              }),
+              _vm._v(" "),
+              _c("h2", { staticClass: "font-bold border-b-2 w-3/4 pt-10" }, [
+                _vm._v("Categories")
+              ]),
+              _vm._v(" "),
+              _c("div", [
+                _c(
+                  "ul",
+                  _vm._l(_vm.tags, function(tag) {
+                    return tag.related.length > 0
+                      ? _c(
+                          "li",
+                          {
+                            key: tag.id,
+                            staticClass: "flex justify-between py-1"
+                          },
+                          [
+                            _c(
+                              "inertia-link",
+                              {
+                                staticClass: "text-lg font-bold",
+                                attrs: { href: "#" }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                            " +
+                                    _vm._s(tag.type) +
+                                    "\n                        "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c("p", [
+                              _vm._v("(" + _vm._s(tag.related.length) + ")")
+                            ])
+                          ],
+                          1
+                        )
+                      : _vm._e()
+                  }),
+                  0
+                )
+              ])
+            ])
           ]
         },
         proxy: true

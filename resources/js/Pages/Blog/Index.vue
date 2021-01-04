@@ -3,6 +3,7 @@
         <template #banner>
             <div id="blog-banner" class="flex flex-grow justify-center items-center h-64 lg:px-64">
                 <img src="/images/cover/banner_bg.png" alt="" class="banner">
+                <img src="/images/cover/banner_bg.png" alt="" class="banner-left">
                 <h1 class="text-6xl text-white font-bold border-r-2 px-12">{{ blog.title }}</h1>
                 <div class="flex-col px-12">
                     <h2 class="text-2xl text-white font-bold">Author</h2>
@@ -146,5 +147,19 @@ export default {
     top: 0;
     z-index: 1;
     height: 16rem;
+}
+
+
+.banner-left {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 10;
+    height: 16rem;
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    z-index: 1;
 }
 </style>

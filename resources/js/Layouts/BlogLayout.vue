@@ -1,5 +1,5 @@
 <template>
-    <div class="flex-col" id="layout">
+    <div class="flex-col flex-grow" id="layout">
         <Nav/>
         <header>
             <slot name="banner"></slot>
@@ -74,6 +74,7 @@ export default {
 
 <style scoped>
 #layout {
+    width: 100%;
 }
 footer {
     /*-webkit-clip-path: polygon(0 0, 100% 0, 100% 87%, 0 100%);*/

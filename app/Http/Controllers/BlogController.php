@@ -29,7 +29,18 @@ class BlogController extends Controller
 
     public function blogList()
     {
-        return Inertia::render('BlogList/Index');
+        $tags = Tag::all();
+        foreach($tags as $key => $tag) {
+            $tag->setAttribute('related', $tag->tagCollections);
+        }
+        $blogs = Blog::take(5)->latest()->get();
+        foreach($blogs as $key => $blog) {
+            $blog->setAttribute('tags', $blog->tagCollections);
+        }
+        return Inertia::render('BlogList/Index', [
+            'blogs' => $blogs,
+            'tags' => $tags
+        ]);
     }
 
     public function viewBlog(Blog $blog)
