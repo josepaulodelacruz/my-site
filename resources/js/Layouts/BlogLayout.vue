@@ -5,10 +5,13 @@
             <slot name="banner"></slot>
         </header>
 
-        <div class="flex justify-start items-start px-12 mt-12 md:px-32 lg:px-64">
-            <slot name="content-left"></slot>
-            <slot name="content-right"></slot>
+        <div class="max-w-6xl mx-auto">
+            <div class="flex justify-start items-start mt-12 mx-12 lg:mx-32 ">
+                <slot name="content-left"></slot>
+                <slot name="content-right"></slot>
+            </div>
         </div>
+
 
         <footer class="footer bg-gray-800 relative pt-1 border-b-2 border-blue-700">
             <div class="container mx-auto px-6">

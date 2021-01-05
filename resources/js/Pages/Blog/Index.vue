@@ -1,11 +1,11 @@
 <template>
     <blog-layout>
         <template #banner>
-            <div id="blog-banner" class="flex flex-grow justify-center items-center h-64 lg:px-64">
+            <div id="blog-banner" class="flex flex-grow justify-center h-64 items-center lg:px-64">
                 <img src="/images/cover/banner_bg.png" alt="" class="banner">
                 <img src="/images/cover/banner_bg.png" alt="" class="banner-left">
-                <h1 class="text-6xl text-white font-bold border-r-2 px-12">{{ blog.title }}</h1>
-                <div class="flex-col px-12">
+                <h1 class="text-3xl lg:text-6xl text-white font-bold border-r-2 pr-12">{{ blog.title }}</h1>
+                <div class="flex-col pl-12">
                     <h2 class="text-2xl text-white font-bold">Author</h2>
                     <h2 class="text-xl text-white justify-self-start font-bold">Jose</h2>
                 </div>
@@ -43,7 +43,7 @@
             </div>
         </template>
         <template #content-right>
-            <div v-if="!isMobile" id="pin1" class="invisible lg:visible lg:w-1/4 lg:flex-col lg:self-start">
+            <div id="pin1" class="hidden lg:block lg:w-1/4 lg:flex-col lg:self-start">
                 <p class="text-3xl font-bold">Search</p>
                 <div class="border-b-2"></div>
 

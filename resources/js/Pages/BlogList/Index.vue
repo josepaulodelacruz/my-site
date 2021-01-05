@@ -4,8 +4,8 @@
             <div id="blog-banner" class="flex flex-grow justify-center h-64 items-center lg:px-64">
                 <img src="/images/cover/banner_bg.png" alt="" class="banner">
                 <img src="/images/cover/banner_bg.png" alt="" class="banner-left">
-                <h1 class="text-6xl text-white font-bold border-r-2 px-12">Blogs</h1>
-                <div class="flex-col px-12">
+                <h1 class="text-3xl lg:text-6xl text-white font-bold border-r-2 pr-12">Blogs</h1>
+                <div class="flex-col pl-12">
                     <h2 class="text-2xl text-white font-bold">Author</h2>
                     <h2 class="text-xl text-white justify-self-start font-bold">Jose</h2>
                 </div>
