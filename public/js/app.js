@@ -2097,6 +2097,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Nav',
   data: function data() {
@@ -47127,9 +47142,14 @@ var render = function() {
             "ul",
             { staticClass: "flex w-full items-center justify-between" },
             [
-              _c("li", [
-                _vm._v("\n                    Blogs\n                ")
-              ]),
+              _c(
+                "li",
+                {
+                  staticClass: "font-bold text-3x1",
+                  class: _vm.scrollPosition > 0 ? "text-black" : "text-white"
+                },
+                [_vm._v("\n                    Blogs\n                ")]
+              ),
               _vm._v(" "),
               _c("div", { staticClass: "block lg:hidden" }, [
                 _c(
@@ -47198,7 +47218,9 @@ var render = function() {
                       "a",
                       {
                         staticClass:
-                          "my-1 text-sm text-gray-700 font-medium hover:text-indigo-500 md:mx-4 md:my-0",
+                          "my-1 text-sm  font-medium hover:text-indigo-500 md:mx-4 md:my-0",
+                        class:
+                          _vm.scrollPosition > 0 ? "text-black" : "text-white",
                         attrs: { href: "#" }
                       },
                       [_vm._v("Home")]
@@ -47210,7 +47232,9 @@ var render = function() {
                       "a",
                       {
                         staticClass:
-                          "my-1 text-sm text-gray-700 font-medium hover:text-indigo-500 md:mx-4 md:my-0",
+                          "my-1 text-sm font-medium hover:text-indigo-500 md:mx-4 md:my-0",
+                        class:
+                          _vm.scrollPosition > 0 ? "text-black" : "text-white",
                         attrs: { href: "#" }
                       },
                       [_vm._v("Shop")]
@@ -47222,7 +47246,9 @@ var render = function() {
                       "a",
                       {
                         staticClass:
-                          "my-1 text-sm text-gray-700 font-medium hover:text-indigo-500 md:mx-4 md:my-0",
+                          "my-1 text-sm  font-medium hover:text-indigo-500 md:mx-4 md:my-0",
+                        class:
+                          _vm.scrollPosition > 0 ? "text-black" : "text-white",
                         attrs: { href: "#" }
                       },
                       [_vm._v("Contact")]
@@ -47234,7 +47260,9 @@ var render = function() {
                       "a",
                       {
                         staticClass:
-                          "my-1 text-sm text-gray-700 font-medium hover:text-indigo-500 md:mx-4 md:my-0",
+                          "my-1 text-sm font-medium hover:text-indigo-500 md:mx-4 md:my-0",
+                        class:
+                          _vm.scrollPosition > 0 ? "text-black" : "text-white",
                         attrs: { href: "#" }
                       },
                       [_vm._v("About")]
@@ -51900,7 +51928,7 @@ var render = function() {
                     staticClass:
                       "text-3xl lg:text-6xl text-white font-bold border-r-2 pr-12"
                   },
-                  [_vm._v("Blogs")]
+                  [_vm._v("Home")]
                 ),
                 _vm._v(" "),
                 _c("div", { staticClass: "flex-col pl-12" }, [

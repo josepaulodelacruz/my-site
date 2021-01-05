@@ -5,11 +5,14 @@
         <!--      :class="mobile ? [scrollPosition > 0 ? 'bg-white shadow fixed' : 'bg-opacity absolute'] : ['bg-white fixed shadow']">-->
         <div class="lg:flex items-center justify-between flex-grow max-w-6xl mx-auto px-12 lg:px-32">
             <ul class="flex w-full items-center justify-between">
-                <li>
+                <li 
+                    class="font-bold text-3x1"
+                    :class="scrollPosition > 0 ? 'text-black': 'text-white'">
                     Blogs
                 </li>
                 <div class="block lg:hidden">
-                    <button @click="isOpen = !isOpen" class="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 ">
+                    <button @click="isOpen = !isOpen"
+                            class="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 ">
                         <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
                     </button>
                 </div>
@@ -20,10 +23,22 @@
                 @after-enter="afterEnter"
                 @leave="leave">
                 <ul v-show="isOpen" class="lg:inline-flex items-center">
-                    <li><a class="my-1 text-sm text-gray-700 font-medium hover:text-indigo-500 md:mx-4 md:my-0" href="#">Home</a></li>
-                    <li><a class="my-1 text-sm text-gray-700 font-medium hover:text-indigo-500 md:mx-4 md:my-0" href="#">Shop</a></li>
-                    <li><a class="my-1 text-sm text-gray-700 font-medium hover:text-indigo-500 md:mx-4 md:my-0" href="#">Contact</a></li>
-                    <li><a class="my-1 text-sm text-gray-700 font-medium hover:text-indigo-500 md:mx-4 md:my-0" href="#">About</a></li>
+                    <li>
+                        <a 
+                        :class="scrollPosition > 0 ? 'text-black': 'text-white'" 
+                        class="my-1 text-sm  font-medium hover:text-indigo-500 md:mx-4 md:my-0" href="#">Home</a></li>
+                    <li>
+                        <a 
+                        :class="scrollPosition > 0 ? 'text-black': 'text-white'" 
+                        class="my-1 text-sm font-medium hover:text-indigo-500 md:mx-4 md:my-0" href="#">Shop</a></li>
+                    <li>
+                        <a   
+                        :class="scrollPosition > 0 ? 'text-black': 'text-white'" 
+                        class="my-1 text-sm  font-medium hover:text-indigo-500 md:mx-4 md:my-0" href="#">Contact</a></li>
+                    <li>
+                        <a 
+                        :class="scrollPosition > 0 ? 'text-black': 'text-white'" 
+                        class="my-1 text-sm font-medium hover:text-indigo-500 md:mx-4 md:my-0" href="#">About</a></li>
                 </ul>
             </transition>
         </div>
