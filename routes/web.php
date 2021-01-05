@@ -30,7 +30,7 @@ Route::middleware(['auth:sanctum', 'verified'])->post('/admin/blog/add', [BlogCo
 Route::middleware(['auth:sanctum', 'verified'])->delete('/admin/blog/{blog}/delete', [BlogController::class, 'destroy'])->name('admin.blog.delete');
 
 //Blog Public Route
-Route::get('/blog/{blog}', [BlogController::class, 'viewBlog'])->name('blog.view');
+Route::get('/blogs/{blog}', [BlogController::class, 'viewBlog'])->name('blog.view');
 Route::get('/blogs', [BlogController::class, 'blogList'])->name('blogs');
 
 
