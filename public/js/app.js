@@ -4300,12 +4300,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       selectedTags: [],
       options: [],
       form: this.$inertia.form({
-        title: null,
-        description: null,
+        title: 'test',
+        description: 'test',
         tags: null,
-        created: null,
-        website: null,
-        repository: null
+        created: 'test',
+        website: 'test',
+        repository: 'test'
       }, {
         bag: 'projectForm'
       })
@@ -4334,6 +4334,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       });
     },
     submit: function submit() {
+      this.form.tags = this.selectedTags;
       this.form.post(route('admin.projects.add'));
     }
   }
@@ -4509,9 +4510,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['projects'],
   components: {
     AdminLayout: _Layouts_AdminLayout__WEBPACK_IMPORTED_MODULE_0__["default"],
     JetInput: _Jetstream_Input__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  mounted: function mounted() {
+    console.log(this.projects);
   },
   methods: {}
 });

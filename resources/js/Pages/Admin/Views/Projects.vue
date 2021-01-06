@@ -66,9 +66,15 @@
 import AdminLayout from '@/Layouts/AdminLayout'
 import JetInput from '@/Jetstream/Input'
 export default {
+    props: [
+        'projects',
+    ],
     components: {
       AdminLayout,
       JetInput,
+    },
+    mounted() {
+      console.log(this.projects);
     },
     methods: {
 

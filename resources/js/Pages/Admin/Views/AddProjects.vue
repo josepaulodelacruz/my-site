@@ -126,12 +126,12 @@ export default {
            selectedTags: [],
            options: [],
            form: this.$inertia.form({
-               title: null,
-               description: null,
+               title: 'test',
+               description: 'test',
                tags: null,
-               created: null,
-               website: null,
-               repository: null,
+               created: 'test',
+               website: 'test',
+               repository: 'test',
            }, {
                bag: 'projectForm',
            }),
@@ -152,6 +152,7 @@ export default {
            this.options.push({type: tag})
        },
        submit() {
+           this.form.tags = this.selectedTags
            this.form.post(route('admin.projects.add'))
        }
    }

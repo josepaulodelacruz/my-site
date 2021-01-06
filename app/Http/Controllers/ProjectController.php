@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Project;
+use App\Models\ProjectTags;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -10,7 +12,10 @@ class ProjectController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Admin/Views/Projects');
+        $projects = Project::all();
+        return Inertia::render('Admin/Views/Projects', [
+            'projects' => $projects,
+        ]);
     }
 
     public function addProjects()
@@ -31,14 +36,22 @@ class ProjectController extends Controller
            'repository' => 'required',
         ]);
 
-
-        $request->user()->projects()->create([
+        $project = $request->user()->projects()->create([
             'title' => $request->title,
             'description' => $request->description,
             'created' => $request->created,
             'website' => $request->website,
             'repository' => $request->repository,
         ]);
+
+        foreach($request->tags as $key => $is_tag) {
+            $tag = Tag::where('type', $is_tag)->first();
+            ProjectTags::create([
+                'project_id' => $project->id,
+                'tag_type' => $is_tag,
+                'tag_id' => $tag->id,
+            ]);
+        }
 
         return redirect()->route('admin.projects')->with('message', 'Successfully added Projrect');
 

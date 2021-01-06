@@ -5,18 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TagCollection extends Model
+class ProjectTags extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['tag_type', 'blog_id', 'tag_id'];
+    protected $fillable = ['tag_type', 'project_id', 'tag_id'];
 
-    public function blogs ()
+    public function projects()
     {
-        return $this->belongsToMany(Blog::class);
+        return $this->belongsToMany(Project::class);
     }
 
-    public function tag ()
+    public function tag()
     {
         return $this->belongsTo(Tag::class);
     }
