@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\ProjectController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -28,6 +30,11 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/admin/blog/{blog}/update'
 Route::middleware(['auth:sanctum', 'verified'])->put('/admin/blog/{blog}/update', [BlogController::class, 'update'])->name('admin.blog.update.blog');
 Route::middleware(['auth:sanctum', 'verified'])->post('/admin/blog/add', [BlogController::class, 'store'])->name('admin.blog.add');
 Route::middleware(['auth:sanctum', 'verified'])->delete('/admin/blog/{blog}/delete', [BlogController::class, 'destroy'])->name('admin.blog.delete');
+//Admin projects
+Route::middleware(['auth:sanctum', 'verified'])->get('/admin/projects', [ProjectController::class, 'index'])->name('admin.projects');
+Route::middleware(['auth:sanctum', 'verified'])->get('/admin/projects/new', [ProjectController::class, 'addProjects'])->name('admin.projects.new');
+Route::middleware(['auth:sanctum', 'verified'])->post('/admin/projects/add', [ProjectController::class, 'store'])->name('admin.projects.add');
+
 
 //Blog Public Route
 Route::get('/blogs/{blog}', [BlogController::class, 'viewBlog'])->name('blog.view');
@@ -39,9 +46,6 @@ Route::get('/admin/tags', [TagController::class, 'index'])->name('tags');
 Route::post('/admin/tags', [TagController::class, 'store'])->name('tag.add');
 Route::delete('/admin/tags/{tag}/delete', [TagController::class, 'destroy'])->name('tag.delete');
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/admin/projects', function () {
-    return Inertia\Inertia::render('Admin/Views/Projects');
-})->name('admin.projects');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia\Inertia::render('Dashboard');
