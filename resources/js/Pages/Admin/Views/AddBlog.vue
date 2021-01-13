@@ -112,7 +112,7 @@ import JetSecondaryButton from '@/Jetstream/SecondaryButton'
 import VueTrix from 'vue-trix'
 
 export default {
-  props: ['isUpdate', 'blog', 'tags'],
+  props: ['isUpdate', 'blog', 'tags', 'all_tags'],
   components: {
     JetActionMessage,
     JetButton,
@@ -142,7 +142,6 @@ export default {
     }
   },
   mounted() {
-
   },
   created() {
     if(this.isUpdate) {
@@ -154,6 +153,10 @@ export default {
       this.tags.map((a) => {
           this.selectedTags.push(a.tag_type);
       });
+      this.all_tags.map((a) => {
+          let b  = this.selectedTags.filter((filTag) => filTag == a.type)
+          return a.type != b && this.options.push({type: a.type})
+      })
     } else {
       this.options = [{type: 'None'}, ...this.tags];
 

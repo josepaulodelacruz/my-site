@@ -4031,7 +4031,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['isUpdate', 'blog', 'tags'],
+  props: ['isUpdate', 'blog', 'tags', 'all_tags'],
   components: {
     JetActionMessage: _Jetstream_ActionMessage__WEBPACK_IMPORTED_MODULE_6__["default"],
     JetButton: _Jetstream_Button__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -4074,6 +4074,15 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       this.form.coverPhoto = this.blog.image;
       this.tags.map(function (a) {
         _this.selectedTags.push(a.tag_type);
+      });
+      this.all_tags.map(function (a) {
+        var b = _this.selectedTags.filter(function (filTag) {
+          return filTag == a.type;
+        });
+
+        return a.type != b && _this.options.push({
+          type: a.type
+        });
       });
     } else {
       this.options = [{

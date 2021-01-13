@@ -56,11 +56,13 @@ class BlogController extends Controller
 
     public function updateBlog(Blog $blog)
     {
+        $all_tags = Tag::all();
         $tags = $blog->tagCollections;
         return Inertia::render('Admin/Views/AddBlog', [
             'isUpdate' => true,
             'blog' => $blog,
-            'tags' => $tags
+            'tags' => $tags,
+            'all_tags' => $all_tags,
         ]);
     }
 
