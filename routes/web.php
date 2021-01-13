@@ -34,12 +34,11 @@ Route::middleware(['auth:sanctum', 'verified'])->delete('/admin/blog/{blog}/dele
 Route::middleware(['auth:sanctum', 'verified'])->get('/admin/projects', [ProjectController::class, 'index'])->name('admin.projects');
 Route::middleware(['auth:sanctum', 'verified'])->get('/admin/projects/new', [ProjectController::class, 'addProjects'])->name('admin.projects.new');
 Route::middleware(['auth:sanctum', 'verified'])->post('/admin/projects/add', [ProjectController::class, 'store'])->name('admin.projects.add');
-
+Route::middleware(['auth:sanctum', 'verified'])->delete('/admin/projects/{project}/delete', [ProjectController::class, 'destroy'])->name('admin.projects.delete');
 
 //Blog Public Route
 Route::get('/blogs/{blog}', [BlogController::class, 'viewBlog'])->name('blog.view');
 Route::get('/blogs', [BlogController::class, 'blogList'])->name('blogs');
-
 
 //Tags route
 Route::get('/admin/tags', [TagController::class, 'index'])->name('tags');

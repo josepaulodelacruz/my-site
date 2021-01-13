@@ -54,7 +54,23 @@
                         <th class="border text-left p-4">Actions</th>
                     </tr>
                 </thead>
-                <tbody >
+                <tbody>
+                    <tr @clicl="viewProject" v-for="(project, index) in projects">
+                        <td class="border text-left px-2">{{ index + 1 }}</td>
+                        <td class="border text-left px-2">{{ project.title }}</td>
+                        <td class="border text-left px-2">{{ project.created_at }}</td>
+                        <td class="border text-left px-2">{{ project.repository }}</td>
+                        <td class="border text-left px-2">{{ project.website }}</td>
+                        <td class="border text-left px-2">Images</td>
+                        <td class="flex border text-left px-2">
+                            <button @click="deleteProject(project)" class="bg-red-500 rounded-lg m-1 p-2 text-white text-xs font-bold">
+                                Delete
+                            </button>
+                            <button class="bg-teal-500 rounded-lg m-1 p-2 text-white text-xs font-bold">
+                                Update
+                            </button>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
 
@@ -77,7 +93,13 @@ export default {
       console.log(this.projects);
     },
     methods: {
+         viewProject() {
 
+         },
+         deleteProject(project) {
+             project._method = "DELETE"
+             this.$inertia.post(`/admin/projects/${project.id}/delete`, project)
+         },
     },
 }
 

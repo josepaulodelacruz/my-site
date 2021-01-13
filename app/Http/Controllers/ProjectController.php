@@ -56,4 +56,11 @@ class ProjectController extends Controller
         return redirect()->route('admin.projects')->with('message', 'Successfully added Projrect');
 
     }
+
+    public function destroy(Project $project) 
+    {
+        $project->delete();
+
+        return back()->with('message', 'Successfully Deleted');
+    }
 }

@@ -4507,6 +4507,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4518,7 +4534,13 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     console.log(this.projects);
   },
-  methods: {}
+  methods: {
+    viewProject: function viewProject() {},
+    deleteProject: function deleteProject(project) {
+      project._method = "DELETE";
+      this.$inertia.post("/admin/projects/".concat(project.id, "/delete"), project);
+    }
+  }
 });
 
 /***/ }),
@@ -52071,7 +52093,70 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _c("tbody")
+            _c(
+              "tbody",
+              _vm._l(_vm.projects, function(project, index) {
+                return _c("tr", { on: { clicl: _vm.viewProject } }, [
+                  _c("td", { staticClass: "border text-left px-2" }, [
+                    _vm._v(_vm._s(index + 1))
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "border text-left px-2" }, [
+                    _vm._v(_vm._s(project.title))
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "border text-left px-2" }, [
+                    _vm._v(_vm._s(project.created_at))
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "border text-left px-2" }, [
+                    _vm._v(_vm._s(project.repository))
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "border text-left px-2" }, [
+                    _vm._v(_vm._s(project.website))
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "border text-left px-2" }, [
+                    _vm._v("Images")
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "flex border text-left px-2" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass:
+                          "bg-red-500 rounded-lg m-1 p-2 text-white text-xs font-bold",
+                        on: {
+                          click: function($event) {
+                            return _vm.deleteProject(project)
+                          }
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "\n                            Delete\n                        "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass:
+                          "bg-teal-500 rounded-lg m-1 p-2 text-white text-xs font-bold"
+                      },
+                      [
+                        _vm._v(
+                          "\n                            Update\n                        "
+                        )
+                      ]
+                    )
+                  ])
+                ])
+              }),
+              0
+            )
           ]
         )
       ])

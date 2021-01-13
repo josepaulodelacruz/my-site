@@ -6,11 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="25a9a975-78ac-4500-bad1-09f3f78259f9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ProjectController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ProjectController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/TagCollection.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/TagCollection.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/BlogController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/BlogController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/Pages/Admin/Views/AddProjects.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Pages/Admin/Views/AddProjects.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/Pages/Admin/Views/Projects.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Pages/Admin/Views/Projects.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -179,9 +178,9 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="dart.analysis.tool.window.visible" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/images/cover" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.JavaScript" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.General" />
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\PhpStorm 2020.3.1\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -259,7 +258,10 @@
       <workItem from="1609852355774" duration="2980000" />
       <workItem from="1609903281807" duration="4305000" />
       <workItem from="1609910057671" duration="76000" />
-      <workItem from="1609910142987" duration="6715000" />
+      <workItem from="1609910142987" duration="7419000" />
+      <workItem from="1609925384299" duration="46000" />
+      <workItem from="1610542742562" duration="257000" />
+      <workItem from="1610543011432" duration="449000" />
     </task>
     <servers />
   </component>

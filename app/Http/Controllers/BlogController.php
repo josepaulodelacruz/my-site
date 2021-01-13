@@ -120,7 +120,6 @@ class BlogController extends Controller
             $request->user()->blogs()->find($request->id)->update($request->all());
             return redirect()->route('admin.blog');
         }
-
     }
 
 }
