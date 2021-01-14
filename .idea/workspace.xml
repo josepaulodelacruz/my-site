@@ -7,9 +7,15 @@
     <list default="true" id="25a9a975-78ac-4500-bad1-09f3f78259f9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/BlogController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/BlogController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/blogs/1609510930.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/blogs/1609511144.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/blogs/1609565114.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/blogs/1609595919.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/blogs/1609916324.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/blogs/1609916350.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/blogs/1610545207.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/Pages/Admin/Views/Projects.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Pages/Admin/Views/Projects.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/Pages/Admin/Views/AddBlog.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Pages/Admin/Views/AddBlog.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -262,6 +268,7 @@
       <workItem from="1609925384299" duration="46000" />
       <workItem from="1610542742562" duration="257000" />
       <workItem from="1610543011432" duration="449000" />
+      <workItem from="1610593201866" duration="1875000" />
     </task>
     <servers />
   </component>

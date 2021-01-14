@@ -4124,6 +4124,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       blog.description = this.form.description;
       blog.body = this.form.body;
       blog.coverPhoto = blog.image;
+      blog.tags = this.selectedTags;
       this.$inertia.put("/admin/blog/".concat(blog.id, "/update"), blog); // this.form.id = this.blog.id
       // this.form.put(`/admin/blog/${blog.id}/update`);
       // this.form.put(`/admin/blog/${blog.id}/update`);

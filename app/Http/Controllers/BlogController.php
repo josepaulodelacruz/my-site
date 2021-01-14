@@ -110,7 +110,7 @@ class BlogController extends Controller
         return back();
     }
 
-    public function update(Request $request)
+    public function update(Request $request, Blog $blog)
     {
         $request->validateWithBag('blogForm', [
             'title' => 'required',
@@ -119,7 +119,16 @@ class BlogController extends Controller
         ]);
 
         if($request->has('id')) {
+            $blog->tagCollections()->delete();
             $request->user()->blogs()->find($request->id)->update($request->all());
+            foreach ($request->tags as $key => $is_tag) {
+                $tag = Tag::where('type', $is_tag)->first();
+                TagCollection::create([
+                    'blog_id' => $blog->id,
+                    'tag_type' => $is_tag,
+                    'tag_id' => $tag->id,
+                ]);
+            }
             return redirect()->route('admin.blog');
         }
     }
