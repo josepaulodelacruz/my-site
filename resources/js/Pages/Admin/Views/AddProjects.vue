@@ -88,28 +88,28 @@
 
             </jet-form-section>
 
-            <jet-form-section class="mt-10">
-                <template #title>
-                    Project Images
-                </template>
-                <template #description>
-                    Upload Images of the Project
-                </template>
+<!--            <jet-form-section class="mt-10">-->
+<!--                <template #title>-->
+<!--                    Project Images-->
+<!--                </template>-->
+<!--                <template #description>-->
+<!--                    Upload Images of the Project-->
+<!--                </template>-->
 
-                <template #form>
-                    <div class="col-span-6 sm:col-span-4">
-                        <jet-label value="Upload Image"/>
-                        <input type="file" accept="image/*" id="file-input" @change="uploadPic($event)">
+<!--                <template #form>-->
+<!--                    <div class="col-span-6 sm:col-span-4">-->
+<!--                        <jet-input-error :message="form.error('images')"/>-->
+<!--                        <jet-label value="Upload Image"/>-->
+<!--                        <input type="file" accept="image/*" id="file-input" @change="uploadPic($event)">-->
+<!--                        <div class="flex flex-wrap mt-3">-->
+<!--                            <img v-for="image in uploadedImages" :src="image" alt="" class="object-fill h-44 m-1">-->
+<!--                        </div>-->
 
-                        <div class="flex flex-wrap mt-3">
-                            <img v-for="image in uploadedImages" :src="image.image" alt="" class="object-fill h-44 m-1">
-                        </div>
+<!--                    </div>-->
 
-                    </div>
+<!--                </template>-->
 
-                </template>
-
-            </jet-form-section>
+<!--            </jet-form-section>-->
 
             <div class="flex justify-end mt-4">
                 <button @click="submit" class="bg-blue-400 rounded-lg p-4 text-white font-bold">
@@ -146,16 +146,16 @@ export default {
    data() {
        return {
            uploadedImages: [],
-           uploadedImage: null,
            selectedTags: [],
            options: [],
            form: this.$inertia.form({
-               title: 'test',
-               description: 'test',
+               title: '',
+               description: '',
                tags: null,
-               created: 'test',
-               website: 'test',
-               repository: 'test',
+               created: '',
+               website: '',
+               repository: '',
+               images: [],
            }, {
                bag: 'projectForm',
            }),
@@ -177,6 +177,7 @@ export default {
        },
        submit() {
            this.form.tags = this.selectedTags
+           // this.form.images = this.uploadedImages
            this.form.post(route('admin.projects.add'))
        },
        uploadPic(event) {
@@ -192,14 +193,12 @@ export default {
                reader.onload = (e) => {
                    // Note: arrow function used here, so that "this.imageData" refers to the imageData of Vue component
                    // Read image as base64 and set to imageData
-                   // this.uploadedImage = e.target.result;
-                   this.uploadedImages.push({name: input.files[0].name ,image: e.target.result});
+                   this.uploadedImages.push(e.target.result);
                }
                // Start the reader job - read file as a data url (base64 format)
                reader.readAsDataURL(input.files[0]);
 
            }
-
        }
    }
 }

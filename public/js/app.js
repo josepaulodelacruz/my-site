@@ -4156,6 +4156,110 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/Admin/Views/AddImage.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Pages/Admin/Views/AddImage.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Layouts_AdminLayout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Layouts/AdminLayout */ "./resources/js/Layouts/AdminLayout.vue");
+/* harmony import */ var _Jetstream_FormSection__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Jetstream/FormSection */ "./resources/js/Jetstream/FormSection.vue");
+/* harmony import */ var _Jetstream_Input__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Jetstream/Input */ "./resources/js/Jetstream/Input.vue");
+/* harmony import */ var _Jetstream_InputError__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/Jetstream/InputError */ "./resources/js/Jetstream/InputError.vue");
+/* harmony import */ var _Jetstream_Label__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/Jetstream/Label */ "./resources/js/Jetstream/Label.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['project'],
+  components: {
+    AdminLayout: _Layouts_AdminLayout__WEBPACK_IMPORTED_MODULE_0__["default"],
+    JetFormSection: _Jetstream_FormSection__WEBPACK_IMPORTED_MODULE_1__["default"],
+    JetInput: _Jetstream_Input__WEBPACK_IMPORTED_MODULE_2__["default"],
+    JetInputError: _Jetstream_InputError__WEBPACK_IMPORTED_MODULE_3__["default"],
+    JetLabel: _Jetstream_Label__WEBPACK_IMPORTED_MODULE_4__["default"]
+  },
+  mounted: function mounted() {
+    console.log(this.project);
+  },
+  data: function data() {
+    return {
+      uploadedImages: [],
+      form: this.$inertia.form({
+        images: []
+      })
+    };
+  },
+  methods: {
+    uploadPic: function uploadPic(event) {
+      var _this = this;
+
+      // Reference to the DOM input element
+      var input = event.target;
+      this.photo = input.files[0];
+      this.form.coverPhoto = null; // Ensure that you have a file before attempting to read it
+
+      if (input.files && input.files[0]) {
+        // create a new FileReader to read this image and convert to base64 format
+        var reader = new FileReader(); // Define a callback function to run, when FileReader finishes its job
+
+        reader.onload = function (e) {
+          // Note: arrow function used here, so that "this.imageData" refers to the imageData of Vue component
+          // Read image as base64 and set to imageData
+          _this.uploadedImages.push(e.target.result);
+        }; // Start the reader job - read file as a data url (base64 format)
+
+
+        reader.readAsDataURL(input.files[0]);
+      }
+    },
+    addImage: function addImage() {
+      this.form.images = this.uploadedImages;
+      this.form.post(route('admin.images.new', this.project));
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/Admin/Views/AddProjects.vue?vue&type=script&lang=js&":
 /*!*****************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Pages/Admin/Views/AddProjects.vue?vue&type=script&lang=js& ***!
@@ -4330,16 +4434,16 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   data: function data() {
     return {
       uploadedImages: [],
-      uploadedImage: null,
       selectedTags: [],
       options: [],
       form: this.$inertia.form({
-        title: 'test',
-        description: 'test',
+        title: '',
+        description: '',
         tags: null,
-        created: 'test',
-        website: 'test',
-        repository: 'test'
+        created: '',
+        website: '',
+        repository: '',
+        images: []
       }, {
         bag: 'projectForm'
       })
@@ -4368,7 +4472,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       });
     },
     submit: function submit() {
-      this.form.tags = this.selectedTags;
+      this.form.tags = this.selectedTags; // this.form.images = this.uploadedImages
+
       this.form.post(route('admin.projects.add'));
     },
     uploadPic: function uploadPic(event) {
@@ -4386,11 +4491,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         reader.onload = function (e) {
           // Note: arrow function used here, so that "this.imageData" refers to the imageData of Vue component
           // Read image as base64 and set to imageData
-          // this.uploadedImage = e.target.result;
-          _this.uploadedImages.push({
-            name: input.files[0].name,
-            image: e.target.result
-          });
+          _this.uploadedImages.push(e.target.result);
         }; // Start the reader job - read file as a data url (base64 format)
 
 
@@ -4591,6 +4692,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
@@ -4611,6 +4715,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     convertDate: function convertDate(date) {
       return moment__WEBPACK_IMPORTED_MODULE_2___default()(date).format('MMMM Do YYYY');
+    },
+    navToImages: function navToImages(project) {
+      this.$inertia.visit(route('admin.images', project));
     }
   }
 });
@@ -51455,6 +51562,130 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/Admin/Views/AddImage.vue?vue&type=template&id=a9b07338&":
+/*!******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Pages/Admin/Views/AddImage.vue?vue&type=template&id=a9b07338& ***!
+  \******************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "admin-layout",
+    {
+      scopedSlots: _vm._u([
+        {
+          key: "header",
+          fn: function() {
+            return [_vm._v("\n        Add Image Project\n    ")]
+          },
+          proxy: true
+        }
+      ])
+    },
+    [
+      _vm._v(" "),
+      _c("jet-form-section", {
+        staticClass: "mt-10",
+        scopedSlots: _vm._u([
+          {
+            key: "title",
+            fn: function() {
+              return [_vm._v("\n            Project Images\n        ")]
+            },
+            proxy: true
+          },
+          {
+            key: "description",
+            fn: function() {
+              return [
+                _vm._v("\n            Upload Images of the Project\n        ")
+              ]
+            },
+            proxy: true
+          },
+          {
+            key: "form",
+            fn: function() {
+              return [
+                _c(
+                  "div",
+                  { staticClass: "col-span-6 sm:col-span-4" },
+                  [
+                    _c("jet-input-error", {
+                      attrs: { message: _vm.form.error("images") }
+                    }),
+                    _vm._v(" "),
+                    _c("jet-label", { attrs: { value: "Upload Image" } }),
+                    _vm._v(" "),
+                    _c("input", {
+                      attrs: {
+                        type: "file",
+                        accept: "image/*",
+                        id: "file-input"
+                      },
+                      on: {
+                        change: function($event) {
+                          return _vm.uploadPic($event)
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "flex flex-wrap mt-3" },
+                      _vm._l(_vm.uploadedImages, function(image) {
+                        return _c("img", {
+                          staticClass: "object-fill h-44 m-1",
+                          attrs: { src: image, alt: "" }
+                        })
+                      }),
+                      0
+                    )
+                  ],
+                  1
+                )
+              ]
+            },
+            proxy: true
+          },
+          {
+            key: "actions",
+            fn: function() {
+              return [
+                _c(
+                  "button",
+                  {
+                    staticClass:
+                      "bg-gray-500 p-2 rounded-lg text-white font-bold",
+                    on: { click: _vm.addImage }
+                  },
+                  [_vm._v("\n                Add\n            ")]
+                )
+              ]
+            },
+            proxy: true
+          }
+        ])
+      })
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/Admin/Views/AddProjects.vue?vue&type=template&id=9e4cc6fe&":
 /*!*********************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Pages/Admin/Views/AddProjects.vue?vue&type=template&id=9e4cc6fe& ***!
@@ -51484,7 +51715,7 @@ var render = function() {
                   staticClass:
                     "font-semibold text-xl text-gray-800 leading-tight"
                 },
-                [_vm._v("\n            Add Project\n        ")]
+                [_vm._v("\n                Add Project\n            ")]
               )
             ]
           },
@@ -51503,7 +51734,11 @@ var render = function() {
               {
                 key: "title",
                 fn: function() {
-                  return [_vm._v("\n                Add Project\n            ")]
+                  return [
+                    _vm._v(
+                      "\n                    Add Project\n                "
+                    )
+                  ]
                 },
                 proxy: true
               },
@@ -51512,7 +51747,7 @@ var render = function() {
                 fn: function() {
                   return [
                     _vm._v(
-                      "\n                Upload your project to your site.\n            "
+                      "\n                    Upload your project to your site.\n                "
                     )
                   ]
                 },
@@ -51601,9 +51836,9 @@ var render = function() {
                               },
                               [
                                 _vm._v(
-                                  "\n                            " +
+                                  "\n                                " +
                                     _vm._s(tag.type) +
-                                    "\n                        "
+                                    "\n                            "
                                 )
                               ]
                             )
@@ -51625,9 +51860,9 @@ var render = function() {
                                 [
                                   _c("p", { staticClass: "text-white" }, [
                                     _vm._v(
-                                      "\n                                    " +
+                                      "\n                                        " +
                                         _vm._s(tag) +
-                                        "\n                                "
+                                        "\n                                    "
                                     )
                                   ]),
                                   _vm._v(" "),
@@ -51644,7 +51879,7 @@ var render = function() {
                                     },
                                     [
                                       _vm._v(
-                                        "\n                                    x\n                                "
+                                        "\n                                        x\n                                    "
                                       )
                                     ]
                                   )
@@ -51672,7 +51907,7 @@ var render = function() {
                 fn: function() {
                   return [
                     _vm._v(
-                      "\n                Project Information\n            "
+                      "\n                    Project Information\n                "
                     )
                   ]
                 },
@@ -51683,7 +51918,7 @@ var render = function() {
                 fn: function() {
                   return [
                     _vm._v(
-                      "\n                Add Date Created, Website Url, Repository and Images\n            "
+                      "\n                    Add Date Created, Website Url, Repository and Images\n                "
                     )
                   ]
                 },
@@ -51780,73 +52015,6 @@ var render = function() {
             ])
           }),
           _vm._v(" "),
-          _c("jet-form-section", {
-            staticClass: "mt-10",
-            scopedSlots: _vm._u([
-              {
-                key: "title",
-                fn: function() {
-                  return [
-                    _vm._v("\n                Project Images\n            ")
-                  ]
-                },
-                proxy: true
-              },
-              {
-                key: "description",
-                fn: function() {
-                  return [
-                    _vm._v(
-                      "\n                Upload Images of the Project\n            "
-                    )
-                  ]
-                },
-                proxy: true
-              },
-              {
-                key: "form",
-                fn: function() {
-                  return [
-                    _c(
-                      "div",
-                      { staticClass: "col-span-6 sm:col-span-4" },
-                      [
-                        _c("jet-label", { attrs: { value: "Upload Image" } }),
-                        _vm._v(" "),
-                        _c("input", {
-                          attrs: {
-                            type: "file",
-                            accept: "image/*",
-                            id: "file-input"
-                          },
-                          on: {
-                            change: function($event) {
-                              return _vm.uploadPic($event)
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          { staticClass: "flex flex-wrap mt-3" },
-                          _vm._l(_vm.uploadedImages, function(image) {
-                            return _c("img", {
-                              staticClass: "object-fill h-44 m-1",
-                              attrs: { src: image.image, alt: "" }
-                            })
-                          }),
-                          0
-                        )
-                      ],
-                      1
-                    )
-                  ]
-                },
-                proxy: true
-              }
-            ])
-          }),
-          _vm._v(" "),
           _c("div", { staticClass: "flex justify-end mt-4" }, [
             _c(
               "button",
@@ -51854,7 +52022,7 @@ var render = function() {
                 staticClass: "bg-blue-400 rounded-lg p-4 text-white font-bold",
                 on: { click: _vm.submit }
               },
-              [_vm._v("\n                Add Project\n            ")]
+              [_vm._v("\n                    Add Project\n                ")]
             )
           ])
         ],
@@ -52248,7 +52416,7 @@ var render = function() {
                     _vm._v(_vm._s(project.title))
                   ]),
                   _vm._v(" "),
-                  _c("td", { staticClass: "border text-left px-2" }, [
+                  _c("td", { staticClass: "border text-left px-2 text-xs" }, [
                     _vm._v(_vm._s(_vm.convertDate(project.created_at)))
                   ]),
                   _vm._v(" "),
@@ -52260,9 +52428,22 @@ var render = function() {
                     _vm._v(_vm._s(project.website))
                   ]),
                   _vm._v(" "),
-                  _c("td", { staticClass: "border text-left px-2" }, [
-                    _vm._v("Images")
-                  ]),
+                  _c(
+                    "td",
+                    {
+                      staticClass: "border text-left px-2",
+                      on: {
+                        click: function($event) {
+                          return _vm.navToImages(project)
+                        }
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n                        Images\n\n                    "
+                      )
+                    ]
+                  ),
                   _vm._v(" "),
                   _c("td", { staticClass: "border text-left px-2" }, [
                     _c(
@@ -86165,6 +86346,8 @@ var map = {
 	"./Admin/Home.vue": "./resources/js/Pages/Admin/Home.vue",
 	"./Admin/Views/AddBlog": "./resources/js/Pages/Admin/Views/AddBlog.vue",
 	"./Admin/Views/AddBlog.vue": "./resources/js/Pages/Admin/Views/AddBlog.vue",
+	"./Admin/Views/AddImage": "./resources/js/Pages/Admin/Views/AddImage.vue",
+	"./Admin/Views/AddImage.vue": "./resources/js/Pages/Admin/Views/AddImage.vue",
 	"./Admin/Views/AddProjects": "./resources/js/Pages/Admin/Views/AddProjects.vue",
 	"./Admin/Views/AddProjects.vue": "./resources/js/Pages/Admin/Views/AddProjects.vue",
 	"./Admin/Views/Blog": "./resources/js/Pages/Admin/Views/Blog.vue",
@@ -86490,6 +86673,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddBlog_vue_vue_type_template_id_5b956f29___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddBlog_vue_vue_type_template_id_5b956f29___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/Pages/Admin/Views/AddImage.vue":
+/*!*****************************************************!*\
+  !*** ./resources/js/Pages/Admin/Views/AddImage.vue ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _AddImage_vue_vue_type_template_id_a9b07338___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AddImage.vue?vue&type=template&id=a9b07338& */ "./resources/js/Pages/Admin/Views/AddImage.vue?vue&type=template&id=a9b07338&");
+/* harmony import */ var _AddImage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AddImage.vue?vue&type=script&lang=js& */ "./resources/js/Pages/Admin/Views/AddImage.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _AddImage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AddImage_vue_vue_type_template_id_a9b07338___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AddImage_vue_vue_type_template_id_a9b07338___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/Pages/Admin/Views/AddImage.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/Pages/Admin/Views/AddImage.vue?vue&type=script&lang=js&":
+/*!******************************************************************************!*\
+  !*** ./resources/js/Pages/Admin/Views/AddImage.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AddImage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./AddImage.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/Admin/Views/AddImage.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AddImage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/Pages/Admin/Views/AddImage.vue?vue&type=template&id=a9b07338&":
+/*!************************************************************************************!*\
+  !*** ./resources/js/Pages/Admin/Views/AddImage.vue?vue&type=template&id=a9b07338& ***!
+  \************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddImage_vue_vue_type_template_id_a9b07338___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./AddImage.vue?vue&type=template&id=a9b07338& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/Admin/Views/AddImage.vue?vue&type=template&id=a9b07338&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddImage_vue_vue_type_template_id_a9b07338___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddImage_vue_vue_type_template_id_a9b07338___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

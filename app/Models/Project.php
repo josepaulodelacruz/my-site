@@ -21,4 +21,9 @@ class Project extends Model
     {
         return $this->hasMany(ProjectTags::class);
     }
+
+    public function projectImages()
+    {
+        return $this->hasMany(ProjectImage::class);
+    }
 }

@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
+use App\Models\ProjectImage;
 use App\Models\ProjectTags;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class ProjectController extends Controller
@@ -55,7 +57,6 @@ class ProjectController extends Controller
             'website' => $request->website,
             'repository' => $request->repository,
         ]);
-
         foreach($request->tags as $key => $is_tag) {
             $tag = Tag::where('type', $is_tag)->first();
             ProjectTags::create([
@@ -64,9 +65,7 @@ class ProjectController extends Controller
                 'tag_id' => $tag->id,
             ]);
         }
-
         return redirect()->route('admin.projects')->with('message', 'Successfully added Projrect');
-
     }
 
     public function destroy(Project $project)

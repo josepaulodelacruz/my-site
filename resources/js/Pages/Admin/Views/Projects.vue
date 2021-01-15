@@ -59,10 +59,13 @@
                     <tr @clicl="viewProject" v-for="(project, index) in projects">
                         <td class="border text-left px-2">{{ index + 1 }}</td>
                         <td class="border text-left px-2">{{ project.title }}</td>
-                        <td class="border text-left px-2">{{ convertDate(project.created_at) }}</td>
+                        <td class="border text-left px-2 text-xs">{{ convertDate(project.created_at) }}</td>
                         <td class="border text-left px-2">{{ project.repository }}</td>
                         <td class="border text-left px-2">{{ project.website }}</td>
-                        <td class="border text-left px-2">Images</td>
+                        <td class="border text-left px-2" @click="navToImages(project)">
+                            Images
+
+                        </td>
                         <td class="border text-left px-2">
                             <div class="flex flex-wrap justify-center py-1">
                                 <span v-for="(tag, index) in project.tags" class="bg-blue-400 text-xs text-white rounded-lg p-1 m-1">{{ tag.tag_type }}</span>
@@ -110,6 +113,9 @@ export default {
          convertDate(date) {
             return moment(date).format('MMMM Do YYYY')
         },
+        navToImages(project) {
+           this.$inertia.visit(route('admin.images', project));
+        }
     },
 }
 
