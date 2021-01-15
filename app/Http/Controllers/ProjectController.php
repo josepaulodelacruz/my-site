@@ -13,12 +13,24 @@ class ProjectController extends Controller
     public function index()
     {
         $projects = Project::all();
+        foreach ($projects as $key => $project) {
+            $project->setAttribute('tags', $project->projectTags);
+        }
+
         return Inertia::render('Admin/Views/Projects', [
             'projects' => $projects,
         ]);
     }
 
     public function addProjects()
+    {
+        $tags = Tag::all();
+        return Inertia::render('Admin/Views/AddProjects', [
+            'tags' => $tags
+        ]);
+    }
+
+    public function updateProject(Project $project)
     {
         $tags = Tag::all();
         return Inertia::render('Admin/Views/AddProjects', [
@@ -57,10 +69,12 @@ class ProjectController extends Controller
 
     }
 
-    public function destroy(Project $project) 
+    public function destroy(Project $project)
     {
         $project->delete();
 
         return back()->with('message', 'Successfully Deleted');
     }
+
+
 }

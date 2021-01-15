@@ -51,6 +51,7 @@
                         <th class="border text-left p-4">Github Repo</th>
                         <th class="border text-left p-4">URL</th>
                         <th class="border text-left p-4">Images</th>
+                        <th class="border text-left p-4">Tags</th>
                         <th class="border text-left p-4">Actions</th>
                     </tr>
                 </thead>
@@ -58,17 +59,22 @@
                     <tr @clicl="viewProject" v-for="(project, index) in projects">
                         <td class="border text-left px-2">{{ index + 1 }}</td>
                         <td class="border text-left px-2">{{ project.title }}</td>
-                        <td class="border text-left px-2">{{ project.created_at }}</td>
+                        <td class="border text-left px-2">{{ convertDate(project.created_at) }}</td>
                         <td class="border text-left px-2">{{ project.repository }}</td>
                         <td class="border text-left px-2">{{ project.website }}</td>
                         <td class="border text-left px-2">Images</td>
+                        <td class="border text-left px-2">
+                            <div class="flex flex-wrap justify-center py-1">
+                                <span v-for="(tag, index) in project.tags" class="bg-blue-400 text-xs text-white rounded-lg p-1 m-1">{{ tag.tag_type }}</span>
+                            </div>
+                        </td>
                         <td class="flex border text-left px-2">
                             <button @click="deleteProject(project)" class="bg-red-500 rounded-lg m-1 p-2 text-white text-xs font-bold">
                                 Delete
                             </button>
-                            <button class="bg-teal-500 rounded-lg m-1 p-2 text-white text-xs font-bold">
+                            <inertia-link :href="route('admin.projects.update', project)" class="bg-teal-500 rounded-lg m-1 p-2 text-white text-xs font-bold">
                                 Update
-                            </button>
+                            </inertia-link>
                         </td>
                     </tr>
                 </tbody>
@@ -81,6 +87,7 @@
 <script>
 import AdminLayout from '@/Layouts/AdminLayout'
 import JetInput from '@/Jetstream/Input'
+import moment from "moment";
 export default {
     props: [
         'projects',
@@ -100,6 +107,9 @@ export default {
              project._method = "DELETE"
              this.$inertia.post(`/admin/projects/${project.id}/delete`, project)
          },
+        convertDate(date) {
+            return moment(date).format('MMMM Do YYYY')
+        },
     },
 }
 

@@ -16,4 +16,9 @@ class Project extends Model
         'website',
         'repository',
     ];
+
+    public function projectTags()
+    {
+        return $this->hasMany(ProjectTags::class);
+    }
 }

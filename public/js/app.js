@@ -4453,6 +4453,8 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Layouts_AdminLayout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Layouts/AdminLayout */ "./resources/js/Layouts/AdminLayout.vue");
 /* harmony import */ var _Jetstream_Input__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Jetstream/Input */ "./resources/js/Jetstream/Input.vue");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
 //
 //
 //
@@ -4533,6 +4535,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4549,6 +4558,9 @@ __webpack_require__.r(__webpack_exports__);
     deleteProject: function deleteProject(project) {
       project._method = "DELETE";
       this.$inertia.post("/admin/projects/".concat(project.id, "/delete"), project);
+    },
+    convertDate: function convertDate(date) {
+      return moment__WEBPACK_IMPORTED_MODULE_2___default()(date).format('MMMM Do YYYY');
     }
   }
 });
@@ -52098,6 +52110,10 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("th", { staticClass: "border text-left p-4" }, [
+                  _vm._v("Tags")
+                ]),
+                _vm._v(" "),
+                _c("th", { staticClass: "border text-left p-4" }, [
                   _vm._v("Actions")
                 ])
               ])
@@ -52116,7 +52132,7 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("td", { staticClass: "border text-left px-2" }, [
-                    _vm._v(_vm._s(project.created_at))
+                    _vm._v(_vm._s(_vm.convertDate(project.created_at)))
                   ]),
                   _vm._v(" "),
                   _c("td", { staticClass: "border text-left px-2" }, [
@@ -52131,38 +52147,64 @@ var render = function() {
                     _vm._v("Images")
                   ]),
                   _vm._v(" "),
-                  _c("td", { staticClass: "flex border text-left px-2" }, [
+                  _c("td", { staticClass: "border text-left px-2" }, [
                     _c(
-                      "button",
-                      {
-                        staticClass:
-                          "bg-red-500 rounded-lg m-1 p-2 text-white text-xs font-bold",
-                        on: {
-                          click: function($event) {
-                            return _vm.deleteProject(project)
-                          }
-                        }
-                      },
-                      [
-                        _vm._v(
-                          "\n                            Delete\n                        "
+                      "div",
+                      { staticClass: "flex flex-wrap justify-center py-1" },
+                      _vm._l(project.tags, function(tag, index) {
+                        return _c(
+                          "span",
+                          {
+                            staticClass:
+                              "bg-blue-400 text-xs text-white rounded-lg p-1 m-1"
+                          },
+                          [_vm._v(_vm._s(tag.tag_type))]
                         )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass:
-                          "bg-teal-500 rounded-lg m-1 p-2 text-white text-xs font-bold"
-                      },
-                      [
-                        _vm._v(
-                          "\n                            Update\n                        "
-                        )
-                      ]
+                      }),
+                      0
                     )
-                  ])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "td",
+                    { staticClass: "flex border text-left px-2" },
+                    [
+                      _c(
+                        "button",
+                        {
+                          staticClass:
+                            "bg-red-500 rounded-lg m-1 p-2 text-white text-xs font-bold",
+                          on: {
+                            click: function($event) {
+                              return _vm.deleteProject(project)
+                            }
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\n                            Delete\n                        "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "inertia-link",
+                        {
+                          staticClass:
+                            "bg-teal-500 rounded-lg m-1 p-2 text-white text-xs font-bold",
+                          attrs: {
+                            href: _vm.route("admin.projects.update", project)
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\n                            Update\n                        "
+                          )
+                        ]
+                      )
+                    ],
+                    1
+                  )
                 ])
               }),
               0
