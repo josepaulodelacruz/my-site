@@ -47818,8 +47818,11 @@ var render = function() {
                 staticClass:
                   "flex items-center duration-200 mt-4 py-2 px-6 border-l-4 text-white",
                 class:
-                  _vm.route().current("admin.projects") &&
-                  "bg-gray-600 bg-opacity-25 text-gray-100 border-gray-100",
+                  _vm.route().current("admin.projects") ||
+                  _vm.route().current("admin.images") ||
+                  _vm.route().current("admin.projects.new")
+                    ? "bg-gray-600 bg-opacity-25 text-gray-100 border-gray-100"
+                    : null,
                 attrs: { href: _vm.route("admin.projects") }
               },
               [_vm._v("\n                Projects\n           ")]
