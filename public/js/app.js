@@ -4285,6 +4285,28 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4307,6 +4329,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   },
   data: function data() {
     return {
+      uploadedImages: [],
+      uploadedImage: null,
       selectedTags: [],
       options: [],
       form: this.$inertia.form({
@@ -4346,6 +4370,32 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     submit: function submit() {
       this.form.tags = this.selectedTags;
       this.form.post(route('admin.projects.add'));
+    },
+    uploadPic: function uploadPic(event) {
+      var _this = this;
+
+      // Reference to the DOM input element
+      var input = event.target;
+      this.photo = input.files[0];
+      this.form.coverPhoto = null; // Ensure that you have a file before attempting to read it
+
+      if (input.files && input.files[0]) {
+        // create a new FileReader to read this image and convert to base64 format
+        var reader = new FileReader(); // Define a callback function to run, when FileReader finishes its job
+
+        reader.onload = function (e) {
+          // Note: arrow function used here, so that "this.imageData" refers to the imageData of Vue component
+          // Read image as base64 and set to imageData
+          // this.uploadedImage = e.target.result;
+          _this.uploadedImages.push({
+            name: input.files[0].name,
+            image: e.target.result
+          });
+        }; // Start the reader job - read file as a data url (base64 format)
+
+
+        reader.readAsDataURL(input.files[0]);
+      }
     }
   }
 });
@@ -51720,6 +51770,73 @@ var render = function() {
                         _c("jet-input-error", {
                           attrs: { message: _vm.form.error("repository") }
                         })
+                      ],
+                      1
+                    )
+                  ]
+                },
+                proxy: true
+              }
+            ])
+          }),
+          _vm._v(" "),
+          _c("jet-form-section", {
+            staticClass: "mt-10",
+            scopedSlots: _vm._u([
+              {
+                key: "title",
+                fn: function() {
+                  return [
+                    _vm._v("\n                Project Images\n            ")
+                  ]
+                },
+                proxy: true
+              },
+              {
+                key: "description",
+                fn: function() {
+                  return [
+                    _vm._v(
+                      "\n                Upload Images of the Project\n            "
+                    )
+                  ]
+                },
+                proxy: true
+              },
+              {
+                key: "form",
+                fn: function() {
+                  return [
+                    _c(
+                      "div",
+                      { staticClass: "col-span-6 sm:col-span-4" },
+                      [
+                        _c("jet-label", { attrs: { value: "Upload Image" } }),
+                        _vm._v(" "),
+                        _c("input", {
+                          attrs: {
+                            type: "file",
+                            accept: "image/*",
+                            id: "file-input"
+                          },
+                          on: {
+                            change: function($event) {
+                              return _vm.uploadPic($event)
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "flex flex-wrap mt-3" },
+                          _vm._l(_vm.uploadedImages, function(image) {
+                            return _c("img", {
+                              staticClass: "object-fill h-44 m-1",
+                              attrs: { src: image.image, alt: "" }
+                            })
+                          }),
+                          0
+                        )
                       ],
                       1
                     )

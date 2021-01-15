@@ -107,7 +107,7 @@ export default {
              project._method = "DELETE"
              this.$inertia.post(`/admin/projects/${project.id}/delete`, project)
          },
-        convertDate(date) {
+         convertDate(date) {
             return moment(date).format('MMMM Do YYYY')
         },
     },
