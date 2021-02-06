@@ -88,28 +88,28 @@
 
             </jet-form-section>
 
-<!--            <jet-form-section class="mt-10">-->
-<!--                <template #title>-->
-<!--                    Project Images-->
-<!--                </template>-->
-<!--                <template #description>-->
-<!--                    Upload Images of the Project-->
-<!--                </template>-->
+            <jet-form-section class="mt-10">
+                <template #title>
+                    Project Images
+                </template>
+                <template #description>
+                    Upload Images of the Project
+                </template>
 
-<!--                <template #form>-->
-<!--                    <div class="col-span-6 sm:col-span-4">-->
-<!--                        <jet-input-error :message="form.error('images')"/>-->
-<!--                        <jet-label value="Upload Image"/>-->
-<!--                        <input type="file" accept="image/*" id="file-input" @change="uploadPic($event)">-->
-<!--                        <div class="flex flex-wrap mt-3">-->
-<!--                            <img v-for="image in uploadedImages" :src="image" alt="" class="object-fill h-44 m-1">-->
-<!--                        </div>-->
+                <template #form>
+                    <div class="col-span-6 sm:col-span-4">
+                        <jet-input-error :message="form.error('images')"/>
+                        <jet-label value="Upload Image"/>
+                        <input type="file" accept="image/*" id="file-input" @change="uploadPic($event)">
+                        <div class="flex flex-wrap mt-3">
+                            <img v-for="image in uploadedImages" :src="image" alt="" class="object-fill h-44 m-1">
+                        </div>
 
-<!--                    </div>-->
+                    </div>
 
-<!--                </template>-->
+                </template>
 
-<!--            </jet-form-section>-->
+            </jet-form-section>
 
             <div class="flex justify-end mt-4">
                 <button @click="submit" class="bg-blue-400 rounded-lg p-4 text-white font-bold">
@@ -145,16 +145,17 @@ export default {
    },
    data() {
        return {
+           photo: '',
            uploadedImages: [],
-           selectedTags: [],
+           selectedTags: ['Coding', 'News'],
            options: [],
            form: this.$inertia.form({
-               title: '',
-               description: '',
+               title: 'test',
+               description: 'test',
                tags: null,
-               created: '',
-               website: '',
-               repository: '',
+               created: 'test',
+               website: 'test',
+               repository: 'test',
                images: [],
            }, {
                bag: 'projectForm',
@@ -177,6 +178,7 @@ export default {
        },
        submit() {
            this.form.tags = this.selectedTags
+           this.form.images = this.photo
            // this.form.images = this.uploadedImages
            this.form.post(route('admin.projects.add'))
        },
@@ -197,7 +199,6 @@ export default {
                }
                // Start the reader job - read file as a data url (base64 format)
                reader.readAsDataURL(input.files[0]);
-
            }
        }
    }

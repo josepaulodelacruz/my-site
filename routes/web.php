@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\ProjectController;
-use App\Http\Controllers\ProjectImageController;
 
 
 Route::get('/', function () {
@@ -37,9 +36,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/admin/projects/new', [Pro
 Route::middleware(['auth:sanctum', 'verified'])->get('/admin/projects/{project}/update', [ProjectController::class, 'updateProject'])->name('admin.projects.update');
 Route::middleware(['auth:sanctum', 'verified'])->post('/admin/projects/add', [ProjectController::class, 'store'])->name('admin.projects.add');
 Route::middleware(['auth:sanctum', 'verified'])->delete('/admin/projects/{project}/delete', [ProjectController::class, 'destroy'])->name('admin.projects.delete');
-//Add Image project
-Route::middleware(['auth:sanctum', 'verified'])->get('/admin/projects/images/{project}', [ProjectImageController::class, 'index'])->name('admin.images');
-Route::middleware(['auth:sanctum', 'verified'])->post('/admin/projects/images/{project}', [ProjectImageController::class, 'store'])->name('admin.images.new');
+
 
 //Blog Public Route
 Route::get('/blogs/{blog}', [BlogController::class, 'viewBlog'])->name('blog.view');

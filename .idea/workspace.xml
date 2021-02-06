@@ -6,8 +6,16 @@
   <component name="ChangeListManager">
     <list default="true" id="25a9a975-78ac-4500-bad1-09f3f78259f9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ProjectController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ProjectController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ProjectImageController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/ProjectImage.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_15_122237_create_project_images_table.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/Components/Sidebar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Components/Sidebar.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/Pages/Admin/Views/AddImage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Pages/Admin/Views/AddImage.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/Pages/Admin/Views/AddProjects.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Pages/Admin/Views/AddProjects.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/Pages/Admin/Views/Projects.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Pages/Admin/Views/Projects.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -263,7 +271,15 @@
       <workItem from="1610593201866" duration="4590000" />
       <workItem from="1610679322942" duration="4468000" />
       <workItem from="1610711399091" duration="1336000" />
-      <workItem from="1610713219016" duration="10357000" />
+      <workItem from="1610713219016" duration="10506000" />
+      <workItem from="1610766206619" duration="2437000" />
+      <workItem from="1610805831404" duration="3090000" />
+      <workItem from="1610937844175" duration="46000" />
+      <workItem from="1611974563968" duration="5824000" />
+      <workItem from="1612231588692" duration="25000" />
+      <workItem from="1612580931447" duration="1910000" />
+      <workItem from="1612597014044" duration="2726000" />
+      <workItem from="1612600547293" duration="337000" />
     </task>
     <servers />
   </component>

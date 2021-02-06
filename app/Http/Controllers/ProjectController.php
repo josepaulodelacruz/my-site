@@ -17,6 +17,7 @@ class ProjectController extends Controller
         $projects = Project::all();
         foreach ($projects as $key => $project) {
             $project->setAttribute('tags', $project->projectTags);
+            $project->setAttribute('image_path', $project->projectImages);
         }
 
         return Inertia::render('Admin/Views/Projects', [
@@ -48,7 +49,12 @@ class ProjectController extends Controller
            'created' => 'required',
            'website' => 'required',
            'repository' => 'required',
+           'images' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
+
+        $imageName = time() . '.' . $request->images->extension();
+
+        $request->images->move(public_path('images/projects'), $imageName);
 
         $project = $request->user()->projects()->create([
             'title' => $request->title,
@@ -57,6 +63,8 @@ class ProjectController extends Controller
             'website' => $request->website,
             'repository' => $request->repository,
         ]);
+
+
         foreach($request->tags as $key => $is_tag) {
             $tag = Tag::where('type', $is_tag)->first();
             ProjectTags::create([
@@ -65,6 +73,13 @@ class ProjectController extends Controller
                 'tag_id' => $tag->id,
             ]);
         }
+
+        ProjectImage::create([
+            'project_id' => $project->id,
+            'image_path' => $imageName,
+        ]);
+
+
         return redirect()->route('admin.projects')->with('message', 'Successfully added Projrect');
     }
 

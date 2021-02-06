@@ -4203,6 +4203,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -4222,9 +4223,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      uploadedImages: [],
+      uploadedImages: null,
       form: this.$inertia.form({
-        images: []
+        images: null
       })
     };
   },
@@ -4244,7 +4245,8 @@ __webpack_require__.r(__webpack_exports__);
         reader.onload = function (e) {
           // Note: arrow function used here, so that "this.imageData" refers to the imageData of Vue component
           // Read image as base64 and set to imageData
-          _this.uploadedImages.push(e.target.result);
+          // this.uploadedImages.push(e.target.result);
+          _this.uploadedImages = e.target.result;
         }; // Start the reader job - read file as a data url (base64 format)
 
 
@@ -4252,7 +4254,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     addImage: function addImage() {
-      this.form.images = this.uploadedImages;
+      this.form.images = this.photo;
       this.form.post(route('admin.images.new', this.project));
     }
   }
@@ -4433,16 +4435,17 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   },
   data: function data() {
     return {
+      photo: '',
       uploadedImages: [],
-      selectedTags: [],
+      selectedTags: ['Coding', 'News'],
       options: [],
       form: this.$inertia.form({
-        title: '',
-        description: '',
+        title: 'test',
+        description: 'test',
         tags: null,
-        created: '',
-        website: '',
-        repository: '',
+        created: 'test',
+        website: 'test',
+        repository: 'test',
         images: []
       }, {
         bag: 'projectForm'
@@ -4472,7 +4475,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       });
     },
     submit: function submit() {
-      this.form.tags = this.selectedTags; // this.form.images = this.uploadedImages
+      this.form.tags = this.selectedTags;
+      this.form.images = this.photo; // this.form.images = this.uploadedImages
 
       this.form.post(route('admin.projects.add'));
     },
@@ -4606,7 +4610,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Jetstream_Input__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Jetstream/Input */ "./resources/js/Jetstream/Input.vue");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
-//
 //
 //
 //
@@ -51587,7 +51590,7 @@ var render = function() {
         {
           key: "header",
           fn: function() {
-            return [_vm._v("\n        Add Image Project\n    ")]
+            return [_vm._v("\n            Add Image Project\n        ")]
           },
           proxy: true
         }
@@ -51601,7 +51604,7 @@ var render = function() {
           {
             key: "title",
             fn: function() {
-              return [_vm._v("\n            Project Images\n        ")]
+              return [_vm._v("\n                Project Images\n            ")]
             },
             proxy: true
           },
@@ -51609,7 +51612,9 @@ var render = function() {
             key: "description",
             fn: function() {
               return [
-                _vm._v("\n            Upload Images of the Project\n        ")
+                _vm._v(
+                  "\n                Upload Images of the Project\n            "
+                )
               ]
             },
             proxy: true
@@ -51641,17 +51646,12 @@ var render = function() {
                       }
                     }),
                     _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "flex flex-wrap mt-3" },
-                      _vm._l(_vm.uploadedImages, function(image) {
-                        return _c("img", {
-                          staticClass: "object-fill h-44 m-1",
-                          attrs: { src: image, alt: "" }
-                        })
-                      }),
-                      0
-                    )
+                    _c("div", { staticClass: "flex flex-wrap mt-3" }, [
+                      _c("img", {
+                        staticClass: "object-fill h-44 m-1",
+                        attrs: { src: _vm.uploadedImages, alt: "" }
+                      })
+                    ])
                   ],
                   1
                 )
@@ -51670,7 +51670,7 @@ var render = function() {
                       "bg-gray-500 p-2 rounded-lg text-white font-bold",
                     on: { click: _vm.addImage }
                   },
-                  [_vm._v("\n                Add\n            ")]
+                  [_vm._v("\n                    Add\n                ")]
                 )
               ]
             },
@@ -51718,7 +51718,7 @@ var render = function() {
                   staticClass:
                     "font-semibold text-xl text-gray-800 leading-tight"
                 },
-                [_vm._v("\n                Add Project\n            ")]
+                [_vm._v("\n            Add Project\n        ")]
               )
             ]
           },
@@ -51737,11 +51737,7 @@ var render = function() {
               {
                 key: "title",
                 fn: function() {
-                  return [
-                    _vm._v(
-                      "\n                    Add Project\n                "
-                    )
-                  ]
+                  return [_vm._v("\n                Add Project\n            ")]
                 },
                 proxy: true
               },
@@ -51750,7 +51746,7 @@ var render = function() {
                 fn: function() {
                   return [
                     _vm._v(
-                      "\n                    Upload your project to your site.\n                "
+                      "\n                Upload your project to your site.\n            "
                     )
                   ]
                 },
@@ -51839,9 +51835,9 @@ var render = function() {
                               },
                               [
                                 _vm._v(
-                                  "\n                                " +
+                                  "\n                            " +
                                     _vm._s(tag.type) +
-                                    "\n                            "
+                                    "\n                        "
                                 )
                               ]
                             )
@@ -51863,9 +51859,9 @@ var render = function() {
                                 [
                                   _c("p", { staticClass: "text-white" }, [
                                     _vm._v(
-                                      "\n                                        " +
+                                      "\n                                    " +
                                         _vm._s(tag) +
-                                        "\n                                    "
+                                        "\n                                "
                                     )
                                   ]),
                                   _vm._v(" "),
@@ -51882,7 +51878,7 @@ var render = function() {
                                     },
                                     [
                                       _vm._v(
-                                        "\n                                        x\n                                    "
+                                        "\n                                    x\n                                "
                                       )
                                     ]
                                   )
@@ -51910,7 +51906,7 @@ var render = function() {
                 fn: function() {
                   return [
                     _vm._v(
-                      "\n                    Project Information\n                "
+                      "\n                Project Information\n            "
                     )
                   ]
                 },
@@ -51921,7 +51917,7 @@ var render = function() {
                 fn: function() {
                   return [
                     _vm._v(
-                      "\n                    Add Date Created, Website Url, Repository and Images\n                "
+                      "\n                Add Date Created, Website Url, Repository and Images\n            "
                     )
                   ]
                 },
@@ -52018,6 +52014,77 @@ var render = function() {
             ])
           }),
           _vm._v(" "),
+          _c("jet-form-section", {
+            staticClass: "mt-10",
+            scopedSlots: _vm._u([
+              {
+                key: "title",
+                fn: function() {
+                  return [
+                    _vm._v("\n                Project Images\n            ")
+                  ]
+                },
+                proxy: true
+              },
+              {
+                key: "description",
+                fn: function() {
+                  return [
+                    _vm._v(
+                      "\n                Upload Images of the Project\n            "
+                    )
+                  ]
+                },
+                proxy: true
+              },
+              {
+                key: "form",
+                fn: function() {
+                  return [
+                    _c(
+                      "div",
+                      { staticClass: "col-span-6 sm:col-span-4" },
+                      [
+                        _c("jet-input-error", {
+                          attrs: { message: _vm.form.error("images") }
+                        }),
+                        _vm._v(" "),
+                        _c("jet-label", { attrs: { value: "Upload Image" } }),
+                        _vm._v(" "),
+                        _c("input", {
+                          attrs: {
+                            type: "file",
+                            accept: "image/*",
+                            id: "file-input"
+                          },
+                          on: {
+                            change: function($event) {
+                              return _vm.uploadPic($event)
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "flex flex-wrap mt-3" },
+                          _vm._l(_vm.uploadedImages, function(image) {
+                            return _c("img", {
+                              staticClass: "object-fill h-44 m-1",
+                              attrs: { src: image, alt: "" }
+                            })
+                          }),
+                          0
+                        )
+                      ],
+                      1
+                    )
+                  ]
+                },
+                proxy: true
+              }
+            ])
+          }),
+          _vm._v(" "),
           _c("div", { staticClass: "flex justify-end mt-4" }, [
             _c(
               "button",
@@ -52025,7 +52092,7 @@ var render = function() {
                 staticClass: "bg-blue-400 rounded-lg p-4 text-white font-bold",
                 on: { click: _vm.submit }
               },
-              [_vm._v("\n                    Add Project\n                ")]
+              [_vm._v("\n                Add Project\n            ")]
             )
           ])
         ],
@@ -52442,9 +52509,15 @@ var render = function() {
                       }
                     },
                     [
-                      _vm._v(
-                        "\n                        Images\n\n                    "
-                      )
+                      _c("img", {
+                        staticClass: " h-32 object-contain",
+                        attrs: {
+                          alt: "Placeholder",
+                          src:
+                            "/images/projects/" +
+                            project.project_images[0].image_path
+                        }
+                      })
                     ]
                   ),
                   _vm._v(" "),

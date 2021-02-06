@@ -63,8 +63,7 @@
                         <td class="border text-left px-2">{{ project.repository }}</td>
                         <td class="border text-left px-2">{{ project.website }}</td>
                         <td class="border text-left px-2" @click="navToImages(project)">
-                            Images
-
+                            <img alt="Placeholder" class=" h-32 object-contain" :src="'/images/projects/' + project.project_images[0].image_path">
                         </td>
                         <td class="border text-left px-2">
                             <div class="flex flex-wrap justify-center py-1">
@@ -100,7 +99,7 @@ export default {
       JetInput,
     },
     mounted() {
-      console.log(this.projects);
+        console.log(this.projects)
     },
     methods: {
          viewProject() {

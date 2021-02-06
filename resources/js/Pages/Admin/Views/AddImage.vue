@@ -17,7 +17,8 @@
                     <jet-label value="Upload Image"/>
                     <input type="file" accept="image/*" id="file-input" @change="uploadPic($event)">
                     <div class="flex flex-wrap mt-3">
-                        <img v-for="image in uploadedImages" :src="image" alt="" class="object-fill h-44 m-1">
+<!--                        <img v-for="image in uploadedImages" :src="image" alt="" class="object-fill h-44 m-1">-->
+                        <img :src="uploadedImages" class="object-fill h-44 m-1"  alt="">
                     </div>
                 </div>
             </template>
@@ -53,9 +54,9 @@ export default {
     },
     data() {
         return {
-            uploadedImages: [],
+            uploadedImages: null,
             form: this.$inertia.form({
-                images: [],
+                images: null,
             })
         }
     },
@@ -73,15 +74,16 @@ export default {
                 reader.onload = (e) => {
                     // Note: arrow function used here, so that "this.imageData" refers to the imageData of Vue component
                     // Read image as base64 and set to imageData
-                    this.uploadedImages.push(e.target.result);
+                    // this.uploadedImages.push(e.target.result);
+                    this.uploadedImages = e.target.result
                 }
                 // Start the reader job - read file as a data url (base64 format)
-                reader.readAsDataURL(input.files[0]);
+                reader.readAsDataURL(input.files[0])
 
             }
         },
         addImage() {
-            this.form.images = this.uploadedImages
+            this.form.images = this.photo
             this.form.post(route('admin.images.new', this.project));
         },
     }
